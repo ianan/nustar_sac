@@ -7,7 +7,7 @@ This repository shows code for the analysis of NuSTAR solar data, in terms of ma
 For this to work you are going to need some (if not all) of the following installed:
 
 * [HEASoft with the NuSTAR and XSPEC packages](http://heasarc.nasa.gov/lheasoft/download.html)
-* The latest [NuSTAR Calibration Files] (http://heasarc.nasa.gov/docs/heasarc/caldb/nustar/)
+* The latest [NuSTAR Calibration Files](http://heasarc.nasa.gov/docs/heasarc/caldb/nustar/)
 * [SAOImage DS9](http://ds9.si.edu/site/Home.html)
 * [IDL with SSWIDL](http://www.lmsal.com/solarsoft/ssw_setup.html)
 
