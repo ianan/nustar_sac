@@ -1,6 +1,6 @@
-# Spectral fitting of solar NuSTAR data
+# Analysis code for solar NuSTAR data
 
-This repository shows example of fitting NuSTAR solar spectra, using either XSPEC (as part of HEASoft) or OSPEX (part of SSWIDL). In both cases the starting point is a spectrum (\*.pha) and response files (\*.arf, \*.rmf) which you will have to create via nuproducts separately (more info below).
+This repository shows code for the analysis of NuSTAR solar data, in terms of maps and spectral fitting etc. Most of this is done in SSWIDL using the outputs from HEASOFT's nupipeline and nuproducts, and a little bit in XSPEC. For python things have a look at [NuSTAR PySolar](https://github.com/NuSTAR/nustar_pysolar).
 
 ### Requirements
 
@@ -12,3 +12,5 @@ For this to work you are going to need some (if not all) of the following instal
 * [IDL with SSWIDL](http://www.lmsal.com/solarsoft/ssw_setup.html)
 
 ### Creating NuSTAR spectral files
+
+Need to write some things here.....
