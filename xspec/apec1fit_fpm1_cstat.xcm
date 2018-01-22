@@ -1,0 +1,61 @@
+########################################################
+## Fit one NuSTAR FPM with single thermal APEC model 
+## with the new Feld 92A coronal abundances - this is actual solar coronal, unlike "abund feld" in xspec
+## Also using c-stat for fitting statistics - best choice when some low count bins
+## 
+##    Run as @apec1fit_fpm1_cstat.xcm in xspec, but manually need to do the last few lines in iplot
+## 
+## 18-Jan-2018 IGH Started based on earlier examples, originally coming from BG
+########################################################
+
+## Name of the pha file 
+data 1:1 nu20110114001A06_chu23_S_cl_grade0_sr.pha
+
+## Use the c-stat for fitting 
+statistic cstat
+
+setplot energy
+
+## Fit over 2.5 to 5
+ignore *:0.-2.5 5.0-**
+
+cpd /xw
+plot
+
+## Choose APEC for the model, VAPEC basically the same as APEC, but more control over abundances (use "abund" command instead)
+## All models here https://heasarc.gsfc.nasa.gov/xanadu/xspec/manual/Models.html
+model apec
+/*
+
+renorm
+## Load in actual coronal abundances - "abund feld" is really photospheric!
+abund file feld92a_coronal0.txt
+fit 1000
+
+setplot xlog off
+plot ldata ratio
+
+## Show free parameters
+show free
+
+## Show fit values
+show fit
+
+## Want the errors calculated as well?
+error 1 4
+
+## Write out the fit results
+## Careful as the following line will apend to this file if it already exists, instead of overwriting it
+writefits mod_apec1fit_fpma_cstat.fits
+
+
+notice *: 2.0-7.0
+
+## Write out the plot of the spectrum and fit
+## Need to run the next two lines manually
+
+#iplot ldata ufspec rat
+#wdata mod_apec1fit_fpma_cstat.txt
+#exit
+
+

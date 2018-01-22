@@ -1,0 +1,73 @@
+########################################################
+## Fit two NuSTAR FPM with single thermal APEC model 
+## with the new Feld 92A coronal abundances - this is actual solar coronal, unlike "abund feld" in xspec
+## Also using c-stat for fitting statistics - best choice when some low count bins
+## This version also rebins the data into larger energy bins for plotting only - does not effect the fit
+## 
+##    Run as @apec1fit_fpm1_cstat_prb.xcm in xspec, but manually need to do the last few lines in iplot
+## 
+## 18-Jan-2018 IGH Started based on earlier examples from BG
+########################################################
+
+## Name of the pha files
+data 1:1 nu20110114001A06_chu23_S_cl_grade0_sr.pha 2:2 nu20110114001B06_chu23_S_cl_grade0_sr.pha
+
+## Use the c-stat for fitting 
+statistic cstat
+
+## Fit over 2.5 to 5
+ignore *:0.-2.5 5.0-**
+
+## This does rebinning of the data for plotting not for fitting, fit done at *.pha energy resolution 
+setplot rebin 25 3
+
+## Plot the data to check it looks ok
+setplot energy
+cpd /xw
+plot
+
+## Choose APEC for the model, VAPEC basically the same as APEC, but more control over abundances (use "abund" command instead)
+## All models here https://heasarc.gsfc.nasa.gov/xanadu/xspec/manual/Models.html
+## Also have multiplicative const factor to fit for FPMB (covers systematic diff between A and B)
+model const*apec
+1.0 -0.1
+/*
+
+## Only want the constant for FPMB to vary, and idependent of FPMA fit
+untie 6
+thaw 6
+
+renorm
+## Load in actual coronal abundances - "abund feld" is really photospheric!
+abund file feld92a_coronal0.txt
+fit 1000
+
+## Plot the fit to the data
+setplot group 1-2
+setplot add
+setplot xlog off
+plot ldata ratio
+
+## Show free parameters
+show free
+
+## Show fit values
+show fit
+
+## Want the errors calculated as well?
+error 2 5 6
+
+## Write out the fit results
+## Careful as the following line will apend to this file if it already exists, instead of overwriting it
+writefits mod_apec1fit_fpmab_cstat_prb.fits
+
+notice *: 2.0-7.0
+
+## Write out the plot of the spectrum and fit
+## Need to run the next two lines manually
+
+#iplot ldata ufspec rat
+#wdata mod_apec1fit_fpmab_cstat_prb.txt
+#exit
+
+

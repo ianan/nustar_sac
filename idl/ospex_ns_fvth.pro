@@ -1,5 +1,4 @@
-pro ospex_ns_fvth,fiter=fiter,$
-  noplot=noplot, uncert_val=uncert_val
+pro ospex_ns_fvth,fiter=fiter, noplot=noplot, uncert_val=uncert_val
 
   ; Do a single thermal spectral fit to some NuSTAR pha, rmf and arf data
   ; For more info on OSPEX see http://hesperia.gsfc.nasa.gov/ssw/packages/spex/doc/ospex_explanation.htm
@@ -9,16 +8,17 @@ pro ospex_ns_fvth,fiter=fiter,$
   ;   fiter       -  Energy range to fit over (default is 2.5 to last bin with >10 counts)
   ;   noplot      -   Don't produce a plot
   ;   uncert_val  -  Systematic error to add to ospex via spex_uncert=uncert_val
-
+  ;
   ; 14-Nov-2017 IGH
+  ; 22-Jan-2018 IGH   Optional de= to load_ns_spec to rebin into larger dE from dde=0.04
   ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   ; Load in the spectrum files
-  ;  dir='~/Dropbox/work_dbx/ns_data/simple_idl/testxout/'
-  dir='/scratch/marduk/iain/heasarc_nustar/ns_20150901_o1/grd0chusbpr/20110114001/event_cl/testxout/'
+  dir='~/Dropbox/work_dbx/ns_data/simple_idl/testxout/'
+  ;  dir='/scratch/marduk/iain/heasarc_nustar/ns_20150901_o1/grd0chusbpr/20110114001/event_cl/testxout/'
   fname='nu20110114001A06_chu23_S_cl_grade0_sr'
 
-  load_ns_spec, dir+fname,specstr, spcer=[1.6,10]
+  load_ns_spec, dir+fname,specstr, spcer=[1.6,10];,de=0.2
 
   ;  ; The spectrum look ok?
   ;    plot,specstr.engm,specstr.counts,xrange=[0,10],psym=10,$
