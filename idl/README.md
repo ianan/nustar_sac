@@ -6,4 +6,6 @@ At the moment it is mostly just loading in the spectral file (.pha) and response
 
 ### Utility codes
 
+* *load_ns_spec.pro* - Routine to load in a given .pha
+
 ### Spectral fitting codes
