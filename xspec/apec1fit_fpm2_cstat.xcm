@@ -2,9 +2,8 @@
 ## Fit two NuSTAR FPM with single thermal APEC model 
 ## with the new Feld 92A coronal abundances - this is actual solar coronal, unlike "abund feld" in xspec
 ## Also using c-stat for fitting statistics - best choice when some low count bins
-## This version also rebins the data into larger energy bins for plotting only - does not effect the fit
 ## 
-##    Run as @apec1fit_fpm1_cstat_prb.xcm in xspec, but manually need to do the last few lines in iplot
+##    Run as @apec2fit_fpm1_cstat_prb.xcm in xspec, but manually need to do the last few lines in iplot
 ## 
 ## 18-Jan-2018 IGH Started based on earlier examples from BG
 ########################################################
@@ -17,9 +16,6 @@ statistic cstat
 
 ## Fit over 2.5 to 5
 ignore *:0.-2.5 5.0-**
-
-## This does rebinning of the data for plotting not for fitting, fit done at *.pha energy resolution 
-setplot rebin 25 3
 
 ## Plot the data to check it looks ok
 setplot energy
@@ -59,7 +55,7 @@ error 2 5 6
 
 ## Write out the fit results
 ## Careful as the following line will apend to this file if it already exists, instead of overwriting it
-writefits mod_apec1fit_fpmab_cstat_prb.fits
+writefits mod_apec1fit_fpmab_cstat.fits
 
 notice *: 2.0-7.0
 
@@ -67,7 +63,7 @@ notice *: 2.0-7.0
 ## Need to run the next two lines manually
 
 #iplot ldata ufspec rat
-#wdata mod_apec1fit_fpmab_cstat_prb.txt
+#wdata mod_apec1fit_fpmab_cstat.txt
 #exit
 
 
