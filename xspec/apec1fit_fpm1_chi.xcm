@@ -42,7 +42,9 @@ show free
 show fit
 
 ## Want the errors calculated as well?
-error 1 4
+## By default its 2.706\sig (90% conf) but want 1\sig 
+# error 1 4
+error 1.0 1 4
 
 ## Write out the fit results
 ## Careful as the following line will apend to this file if it already exists, instead of overwriting it
