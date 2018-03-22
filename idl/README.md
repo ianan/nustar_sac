@@ -7,7 +7,7 @@ At the moment it is mostly just loading in the spectral file (.pha) and response
 ### NuSTAR generic code
 
 * [*load_ns_spec.pro*](https://github.com/ianan/nsigh/blob/master/idl/load_ns_spec.pro) - Routine to load in a given .pha file
-* [*rmfread.pro*](https://github.com/ianan/nsigh/blob/master/idl/rmfread.pro) - For reading the .rmf file
+* [*rmfread.pro*](https://github.com/ianan/nsigh/blob/master/idl/rmfread.pro) - For reading the .rmf file, [originally from](https://lost-contact.mit.edu/afs/physics.wisc.edu/home/craigm/lib/idl/spectral/rmfread.pro)
 
 
 ### Spectral fitting codes
@@ -18,11 +18,11 @@ At the moment it is mostly just loading in the spectral file (.pha) and response
 
 ### Mapping codes
 
-* [*.pro*](https://github.com/ianan/nsigh/blob/master/idl/.pro) - 
+* [*.pro*](https://github.com/ianan/nsigh/blob/master/idl/.pro) -
 
 ### Utility codes
 
 * [*post_outset.pro*](https://github.com/ianan/nsigh/blob/master/idl/post_outset.pro) - Sets up the eps plots
 * [*exp1.pro*](https://github.com/ianan/nsigh/blob/master/idl/exp1.pro) - Function to get exp format in plot labels
-* [*vcol2arr.pro*](https://github.com/ianan/nsigh/blob/master/idl/vcol2arr.pro) - Used by rmfread.pro
-* [*vrmf2arr.pro*](https://github.com/ianan/nsigh/blob/master/idl/vrmf2arr.pro) - Used by rmfread.pro
+* [*vcol2arr.pro*](https://github.com/ianan/nsigh/blob/master/idl/vcol2arr.pro) - Used by rmfread.pro, [originally from](https://lost-contact.mit.edu/afs/physics.wisc.edu/home/craigm/lib/idl/util/vcol2arr.pro)
+* [*vrmf2arr.pro*](https://github.com/ianan/nsigh/blob/master/idl/vrmf2arr.pro) - Used by rmfread.pro, [originally from](https://lost-contact.mit.edu/afs/physics.wisc.edu/home/craigm/lib/idl/spectral/vrmf2arr.pro)
