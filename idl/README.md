@@ -13,8 +13,8 @@ At the moment it is mostly just loading in the spectral file (.pha) and response
 ### Spectral fitting codes
 
 * [*ospex_ns_fvth.pro*](https://github.com/ianan/nsigh/blob/master/idl/post_outset.pro) - Loads in a pha/rmf/arf using load_ns_spec.pro and does a single isothermal fit
-* [*plotf_ospex_ns_fvth.pro*](https://github.com/ianan/nsigh/blob/master/idl/post_outset.pro) - Plot the output from ospex_ns_fvth.pro using IDL 8+ plot() function
-* [*plotp_ospex_ns_fvth.pro*](https://github.com/ianan/nsigh/blob/master/idl/post_outset.pro) - Plot the output from ospex_ns_fvth.pro using IDL plot procedure
+* [*plotf_ospex_ns_fvth.pro*](https://github.com/ianan/nsigh/blob/master/idl/plotf_ospex_ns_fvth.pro) - Plot the output from ospex_ns_fvth.pro using IDL 8+ plot() function
+* [*plotp_ospex_ns_fvth.pro*](https://github.com/ianan/nsigh/blob/master/idl/plotp_ospex_ns_fvth.pro) - Plot the output from ospex_ns_fvth.pro using IDL plot procedure
 
 ### Mapping codes
 
