@@ -1,9 +1,33 @@
+;
+; VCOL2ARR - transform a variable length structure into a 2D matrix
+;            The input is the data of a variable length column.  Use
+;            FXBREADM to read the data, and the result is a structure
+;            which has the data, but it's not in array format.  Use
+;            this procedure to transform to an array.  
+;
+;            The output is a 2D array = ARRAY(NCOLS,NROWS) where
+;              * NCOLS is the maximum number of elements in a row
+;              * NROWS is the number of table rows 
+;            The array is filled for row J starting at ARR(0,J).
+;            Any unfilled elements are set to zero.
+;
+; PARAMETERS:
+;
+;  VCOL - (input) structure produced by FXBREADM after reading variable length
+;         column
+;
+;  ARR - (output) 2D array.
+;
+;  Originally from https://lost-contact.mit.edu/afs/physics.wisc.edu/home/craigm/lib/idl/util/vcol2arr.pro
+;
+;
 pro vcol2arr, vcol, arr
 
   ;; Non-structures are returned immediately
   sz = size(vcol)
   if sz(sz(0)+1) NE 8 then begin
       arr = temporary(vcol)
+      if sz(0) EQ 1 then arr = reform(arr, /overwrite, 1, sz(1))
       return
   endif
 
