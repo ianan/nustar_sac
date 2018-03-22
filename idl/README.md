@@ -6,7 +6,7 @@ At the moment it is mostly just loading in the spectral file (.pha) and response
 
 ### NuSTAR generic code
 
-* [*load_ns_spec.pro*](https://github.com/ianan/nsigh/blob/master/idl/load_ns_spec.pro) - Routine to load in a given .pha file
+* [*load_ns_spec.pro*](https://github.com/ianan/nsigh/blob/master/idl/load_ns_spec.pro) - Routine to load in a given pha/rmf/arf files
 * [*rmfread.pro*](https://github.com/ianan/nsigh/blob/master/idl/rmfread.pro) - For reading the .rmf file, [originally from](https://lost-contact.mit.edu/afs/physics.wisc.edu/home/craigm/lib/idl/spectral/rmfread.pro)
 
 
