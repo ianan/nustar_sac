@@ -18,7 +18,7 @@ At the moment it is mostly just loading in the spectral file (.pha) and response
 
 ### Mapping codes
 
-* [*.pro*](https://github.com/ianan/nsigh/blob/master/idl/.pro) -
+
 
 ### Utility codes
 
