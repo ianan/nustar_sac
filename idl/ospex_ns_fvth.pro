@@ -1,4 +1,5 @@
-pro ospex_ns_fvth,fiter=fiter, noplot=noplot, uncert_val=uncert_val
+pro ospex_ns_fvth,fiter=fiter, noplot=noplot, uncert_val=uncert_val,$
+  dir=dir, fname=fname,fout=fout
 
   ; Do a single thermal spectral fit to some NuSTAR pha, rmf and arf data
   ; For more info on OSPEX see http://hesperia.gsfc.nasa.gov/ssw/packages/spex/doc/ospex_explanation.htm
@@ -8,15 +9,19 @@ pro ospex_ns_fvth,fiter=fiter, noplot=noplot, uncert_val=uncert_val
   ;   fiter       -  Energy range to fit over (default is 2.5 to last bin with >10 counts)
   ;   noplot      -   Don't produce a plot
   ;   uncert_val  -  Systematic error to add to ospex via spex_uncert=uncert_val
-  ;
+  ;   dir         -  Where are your pha, rmf and arf files?
+  ;   fname       -  What's the name/id of your pha, rmf and arf file?
+  ;   fout        -  Name for the output file, default is just the fname id
+  ;   
   ; 14-Nov-2017 IGH
   ; 22-Jan-2018 IGH   Optional de= to load_ns_spec to rebin into larger dE from dde=0.04
+  ; 22-Mar-2018 IGH   Option for dir and fname
   ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  ; Load in the spectrum files
-  dir='~/Dropbox/work_dbx/ns_data/simple_idl/testxout/'
-  ;  dir='/scratch/marduk/iain/heasarc_nustar/ns_20150901_o1/grd0chusbpr/20110114001/event_cl/testxout/'
-  fname='nu20110114001A06_chu23_S_cl_grade0_sr'
+  ; Load in the spectrum files - IGH defaults, you should obviously change
+  if (n_elements(dir) ne 1) then dir='~/Dropbox/work_dbx/ns_data/simple_idl/testxout/'
+  if (n_elements(fname) ne 1) then fname='nu20110114001A06_chu23_S_cl_grade0_sr'
+  if (n_elements(fout) ne 1) then fout=fname
 
   load_ns_spec, dir+fname,specstr, spcer=[1.6,10];,de=0.2
 
