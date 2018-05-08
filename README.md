@@ -11,6 +11,8 @@ For this to work you are going to need some (if not all) of the following instal
 * [SAOImage DS9](http://ds9.si.edu/site/Home.html)
 * [IDL with SSWIDL](http://www.lmsal.com/solarsoft/ssw_setup.html)
 
+### Images/Maps
+
 ### Spectral fitting
 
 We are using two different approaches for the spectral fitting at the moment, with each having pros and cons:
