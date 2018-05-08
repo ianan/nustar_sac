@@ -1,6 +1,8 @@
 # NuSTAR SAC - NuSTAR Solar Analysis Code
 
-This repository contains code for the analysis of NuSTAR solar data, in terms of maps and spectral fitting etc. This is done using the outputs from HEASOFT/NuSTARADS's nupipeline and nuproducts, mostly in SSWIDL and a bit in XSPEC. At the moment, the code focuses on spectral fitting in OSPEX (SSWIDL) and XSPEC. For python things, there will (eventually) be a few example notebooks here but the code for that is on the [NuSTAR PySolar repo](https://github.com/NuSTAR/nustar_pysolar).
+This repository contains code for the analysis of NuSTAR solar data, in terms of maps and spectral fitting etc. This is done using the outputs from HEASOFT/NuSTARDAS's nupipeline and nuproducts, mostly in SSWIDL and a bit in XSPEC. At the moment, the code focuses on spectral fitting in OSPEX (SSWIDL) and XSPEC. For python things, there will (eventually) be a few example notebooks here but the code for that is on the [NuSTAR PySolar repo](https://github.com/NuSTAR/nustar_pysolar).
+
+If you just want an overview of the obervations look on the [nsovr GitHub page](http://ianan.github.io/nsovr/).
 
 ### Requirements
 
