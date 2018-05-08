@@ -1,4 +1,4 @@
-# Analysis of solar NuSTAR data with SSWIDL
+# NuSTAR Solar Analysis Code - SSWIDL
 
 This should eventually include loading the data, mapping it, time profiles and spectral fitting with [OSPEX](https://hesperia.gsfc.nasa.gov/ssw/packages/spex/doc/ospex_explanation.htm) (part of SSWIDL).
 
