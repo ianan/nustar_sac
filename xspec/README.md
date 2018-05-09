@@ -10,7 +10,7 @@ Fit a single APEC thermal model with coronal abunances to one telescope (FPM):
 * [*apec1fit_fpm1_cstat_prb.xcm*](https://github.com/ianan/nustar_sac/blob/master/xspec/apec1fit_fpm1_cstat_prb.xcm) - Uses c-stat test, recommended approach (as likely low count/poisson uncertainty bins). Produces output with larger energy bins, but these wider bins are not used in the fit.
 * [*apec1fit_fpm1_chi.xcm*](https://github.com/ianan/nustar_sac/blob/master/xspec/apec1fit_fpm1_chi.xcm) - Uses chi2 test, not recommended - just for testing/OSPEX comparison/massive bins.
 
-Fit a single APEC thermal model with coronal abunances to two telescopes (FPMs) simultaneously: 
+Fit a single APEC thermal model with coronal abunances jointly to two telescopes (FPMA+FPMB): 
 * [*apec1fit_fpm2_cstat.xcm*](https://github.com/ianan/nustar_sac/blob/master/xspec/apec1fit_fpm2_cstat.xcm) - Uses c-stat test, recommended approach (as likely low count/poisson uncertainty bins).
 * [*apec1fit_fpm2_cstat_prb.xcm*](https://github.com/ianan/nustar_sac/blob/master/xspec/apec1fit_fpm2_cstat_prb.xcm) - Uses c-stat test, recommended approach (as likely low count/poisson uncertainty bins). Produces output with larger energy bins, but these wider bins are not used in the fit.
 
@@ -18,10 +18,10 @@ Fit a single APEC thermal model with coronal abunances to two telescopes (FPMs) 
 * [*feld92a_coronal0.txt*](https://github.com/ianan/nustar_sac/blob/master/xspec/feld92a_coronal0.txt) - Coronal solar abundances from [Feldman 1992](https://doi.org/10.1086/191698), the same ones used in the solar [CHIANTI](http://www.chiantidatabase.org/) database. Default "abund feld" in XSPEC is photospheric not coronal (from different [Feldman 1992](https://doi.org/10.1088/0031-8949/46/3/002) paper).
 
 ### SSWIDL plotting codes
-The take the output files produced by the XSPEC code and plots them with SSWIDL.
+The take the output files produced by the XSPEC code (i.e. mod_apec1fit_fpma_chi.txt and mod_apec1fit_fpma_chi.fits) and plots them with SSWIDL.
 
 * [*plot_xspec1apec.pro*](https://github.com/ianan/nustar_sac/blob/master/xspec/plot_xspec1apec.pro) - Plots the single APEC thermal fit to one telescope, i.e. output from [*apec1fit_fpm1_cstat.xcm*](https://github.com/ianan/nustar_sac/blob/master/xspec/apec1fit_fpm1_cstat.xcm).
-* [*plot_xspec1apec_ab.pro*](https://github.com/ianan/nustar_sac/blob/master/xspec/plot_xspec1apec_ab.pro) - Plots the single APEC thermal fit to both telescopes simultaneously, i.e. output from [*apec1fit_fpm2_cstat.xcm*](https://github.com/ianan/nustar_sac/blob/master/xspec/apec1fit_fpm2_cstat.xcm).
+* [*plot_xspec1apec_ab.pro*](https://github.com/ianan/nustar_sac/blob/master/xspec/plot_xspec1apec_ab.pro) - Plots the single APEC thermal fit jointly to both telescopes, i.e. output from [*apec1fit_fpm2_cstat.xcm*](https://github.com/ianan/nustar_sac/blob/master/xspec/apec1fit_fpm2_cstat.xcm).
 
 ### Utility codes
 * [*post_outset.pro*](https://github.com/ianan/nsigh/blob/master/idl/post_outset.pro) - Sets up the eps plots
