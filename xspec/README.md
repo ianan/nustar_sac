@@ -8,11 +8,14 @@ So the starting point assumes you already have your spectral file (.pha) and res
 
 These can be run line-by-line or via @filename in the XSPEC environment - although the final output parts within iplot needs to be done manually.
 
-Fit a single APEC thermal model with coronal abunances (from [*feld92a_coronal0.txt*](https://github.com/ianan/nustar_sac/blob/master/xspec/feld92a_coronal0.txt) to one telescope (FPM)
-* [*apec1fit_fpm1_cstat.xcm*](https://github.com/ianan/nustar_sac/blob/master/xspec/apec1fit_fpm1_cstat.xcm) - Uses c-stat test, recommended approach (as likely low count/poisson uncertainty bins).
-* [*apec1fit_fpm1_cstat_pbr.xcm*](https://github.com/ianan/nustar_sac/blob/master/xspec/apec1fit_fpm1_cstat.xcm) - Uses c-stat test, recommended approach (as likely low count/poisson uncertainty bins). This version produces output with larger energy bins, but these wider bins are not used in the fit, just the output/plot.
-* [*apec1fit_fpm1_chi.xcm*](https://github.com/ianan/nustar_sac/blob/master/xspec/apec1fit_fpm1_chi.xcm) - Uses chi2 test, not recommended - just for testing/OSPEX comparison/massive bins.
+* Fit a single APEC thermal model with coronal abunances (from [*feld92a_coronal0.txt*](https://github.com/ianan/nustar_sac/blob/master/xspec/feld92a_coronal0.txt) to one telescope (FPM):
+  * [*apec1fit_fpm1_cstat.xcm*](https://github.com/ianan/nustar_sac/blob/master/xspec/apec1fit_fpm1_cstat.xcm) - Uses c-stat test, recommended approach (as likely low count/poisson uncertainty bins).
+  * [*apec1fit_fpm1_cstat_pbr.xcm*](https://github.com/ianan/nustar_sac/blob/master/xspec/apec1fit_fpm1_cstat_pbr.xcm) - Uses c-stat test, recommended approach (as likely low count/poisson uncertainty bins). This version produces output with larger energy bins, but these wider bins are not used in the fit, just the output/plot.
+  * [*apec1fit_fpm1_chi.xcm*](https://github.com/ianan/nustar_sac/blob/master/xspec/apec1fit_fpm1_chi.xcm) - Uses chi2 test, not recommended - just for testing/OSPEX comparison/massive bins.
 
+* Fit a single APEC thermal model with coronal abunances (from [*feld92a_coronal0.txt*](https://github.com/ianan/nustar_sac/blob/master/xspec/feld92a_coronal0.txt) to two telescopes (FPMs) simultaneously: 
+  * [*apec1fit_fpm2_cstat.xcm*](https://github.com/ianan/nustar_sac/blob/master/xspec/apec1fit_fpm2_cstat.xcm) - Uses c-stat test, recommended approach (as likely low count/poisson uncertainty bins).
+  * [*apec1fit_fpm2_cstat_pbr.xcm*](https://github.com/ianan/nustar_sac/blob/master/xspec/apec1fit_fpm2_cstat_pbr.xcm) - Uses c-stat test, recommended approach (as likely low count/poisson uncertainty bins). This version produces output with larger energy bins, but these wider bins are not used in the fit, just the output/plot.
 ### SSWIDL plotting codes
 
 The take the output files produced by the XSPEC code
