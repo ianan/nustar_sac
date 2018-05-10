@@ -1,5 +1,5 @@
 pro ospex_ns_fvth,fiter=fiter, noplot=noplot, uncert_val=uncert_val,$
-  dir=dir, fname=fname,fout=fout
+  dir=dir, fname=fname,fout=fout,de=de,spcer=spcer
 
   ; Do a single thermal spectral fit to some NuSTAR pha, rmf and arf data
   ; For more info on OSPEX see http://hesperia.gsfc.nasa.gov/ssw/packages/spex/doc/ospex_explanation.htm
@@ -12,18 +12,23 @@ pro ospex_ns_fvth,fiter=fiter, noplot=noplot, uncert_val=uncert_val,$
   ;   dir         -  Where are your pha, rmf and arf files?
   ;   fname       -  What's the name/id of your pha, rmf and arf file?
   ;   fout        -  Name for the output file, default is just the fname id
+  ;   spcer       -  Energy range for the loaded data (default 1.6 to 10 keV)
+  ;   de          -  Energy binning for loaded data (dedault is original 0.04 keV)
   ;   
   ; 14-Nov-2017 IGH
   ; 22-Jan-2018 IGH   Optional de= to load_ns_spec to rebin into larger dE from dde=0.04
   ; 22-Mar-2018 IGH   Option for dir and fname
+  ; 10-May-2018 IGh   Option for de (energy binning) and spcer (energy range) for loading data in
   ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   ; Load in the spectrum files - IGH defaults, you should obviously change
   if (n_elements(dir) ne 1) then dir='~/Dropbox/work_dbx/ns_data/simple_idl/testxout/'
   if (n_elements(fname) ne 1) then fname='nu20110114001A06_chu23_S_cl_grade0_sr'
   if (n_elements(fout) ne 1) then fout=fname
-
-  load_ns_spec, dir+fname,specstr, spcer=[1.6,10];,de=0.2
+  if (n_elements(spcer) ne 2) then spcer=[1.6,10]
+  
+  if (n_elements(de) eq 1) then load_ns_spec, dir+fname,specstr, spcer=spcer,de=de $
+    else load_ns_spec, dir+fname,specstr, spcer=spcer
 
   ;  ; The spectrum look ok?
   ;    plot,specstr.engm,specstr.counts,xrange=[0,10],psym=10,$
