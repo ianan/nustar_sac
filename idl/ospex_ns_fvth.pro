@@ -1,5 +1,5 @@
 pro ospex_ns_fvth,fiter=fiter, noplot=noplot, uncert_val=uncert_val,$
-  dir=dir, fname=fname,fout=fout,de=de,spcer=spcer
+  dir=dir, fname=fname,fout=fout,de=de,spcer=spcer,pltxr=pltxr,pltyr=pltyr
 
   ; Do a single thermal spectral fit to some NuSTAR pha, rmf and arf data
   ; For more info on OSPEX see http://hesperia.gsfc.nasa.gov/ssw/packages/spex/doc/ospex_explanation.htm
@@ -14,11 +14,13 @@ pro ospex_ns_fvth,fiter=fiter, noplot=noplot, uncert_val=uncert_val,$
   ;   fout        -  Name for the output file, default is just the fname id
   ;   spcer       -  Energy range for the loaded data (default 1.6 to 10 keV)
   ;   de          -  Energy binning for loaded data (dedault is original 0.04 keV)
+  ;   pltxr       -  x-range for output plot
+  ;   pltyr       -  y-range for output plot
   ;   
   ; 14-Nov-2017 IGH
-  ; 22-Jan-2018 IGH   Optional de= to load_ns_spec to rebin into larger dE from dde=0.04
+  ; 22-Jan-2018 IGH   Optional de= to load_ns_spec to rebin into larger dE from de=0.04
   ; 22-Mar-2018 IGH   Option for dir and fname
-  ; 10-May-2018 IGh   Option for de (energy binning) and spcer (energy range) for loading data in
+  ; 10-May-2018 IGH   Option for de (energy binning) and spcer (energy range) for loading data in
   ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   ; Load in the spectrum files - IGH defaults, you should obviously change
@@ -121,6 +123,7 @@ pro ospex_ns_fvth,fiter=fiter, noplot=noplot, uncert_val=uncert_val,$
   engs=get_edges(model.ct_energy,/mean)
   np=n_elements(engs)
 
+  ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ; Save all the spectra and fit info out
   fit_out={fname:fname,fpmid:fpmid,timer:[t1,t2],dur:livetime,ontime:ontime,$
     eranfit:eranfit,eengs:model.ct_energy,engs:engs,$
@@ -133,9 +136,12 @@ pro ospex_ns_fvth,fiter=fiter, noplot=noplot, uncert_val=uncert_val,$
 
   ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ; Make a plot of the spectra and fit
-  plter=[2.0,6]
+  if (n_elements(pltxr) ne 2) then pltxr=[2.0,6]
+  if (n_elements(pltyr) ne 2) then pltyr=[1.5,2e3]
   ;  if (keyword_set(noplot) ne 1 and float(!version.release) ge 8.0) then $
   ;    plotf_ospex_ns_fvth, fit_out,plter=plter,ylim=[1.5,2e3] else $
-  plotp_ospex_ns_fvth, fit_out,plter=plter,ylim=[1.5,2e3]
+  if (keyword_set(noplot) ne 1 ) then plotp_ospex_ns_fvth, fit_out,plter=pltxr,ylim=pltyr
+
+  ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 end
