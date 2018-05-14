@@ -18,9 +18,10 @@ pro ospex_ns_fvth,fiter=fiter, noplot=noplot, uncert_val=uncert_val,$
   ;   pltyr       -  y-range for output plot
   ;   
   ; 14-Nov-2017 IGH
-  ; 22-Jan-2018 IGH   Optional de= to load_ns_spec to rebin into larger dE from de=0.04
+  ; 22-Jan-2018 IGH   Optional de= to load_nsspec to rebin into larger dE from de=0.04
   ; 22-Mar-2018 IGH   Option for dir and fname
   ; 10-May-2018 IGH   Option for de (energy binning) and spcer (energy range) for loading data in
+  ; 14-May-2018 IGH   Now works we renamed load_nsspec
   ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   ; Load in the spectrum files - IGH defaults, you should obviously change
@@ -29,8 +30,8 @@ pro ospex_ns_fvth,fiter=fiter, noplot=noplot, uncert_val=uncert_val,$
   if (n_elements(fout) ne 1) then fout=fname
   if (n_elements(spcer) ne 2) then spcer=[1.6,10]
   
-  if (n_elements(de) eq 1) then load_ns_spec, dir+fname,specstr, spcer=spcer,de=de $
-    else load_ns_spec, dir+fname,specstr, spcer=spcer
+  if (n_elements(de) eq 1) then load_nsspec, dir+fname,specstr, spcer=spcer,de=de $
+    else load_nsspec, dir+fname,specstr, spcer=spcer
 
   ;  ; The spectrum look ok?
   ;    plot,specstr.engm,specstr.counts,xrange=[0,10],psym=10,$

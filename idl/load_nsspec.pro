@@ -1,4 +1,4 @@
-pro load_ns_spec, fname,spec, spcer=spcer,de=de
+pro load_nsspec, fname,spec, spcer=spcer,de=de
 
   ; Load in a set of NuSTAR pha, rmf and arf files and returns a format suitable for
   ; work in IDL and/or with OSPEX
@@ -15,7 +15,7 @@ pro load_ns_spec, fname,spec, spcer=spcer,de=de
   ;
   ; 18-Jun-2017   IGH
   ; 08-Dec-2017   IGH
-  ;
+  ; 14-May-2018   IGH   Renamed from load_ns_spec to load_nsspec to be consistent with other load*.pro
   ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   if (n_elements(fname) ne 1) then $
