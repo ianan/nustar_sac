@@ -15,7 +15,6 @@ pro example_nslct
   ; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ; Load in a particular evt file
   load_nsevt,fnevt,evt,hdr
-
   timer=minmax(evt.time)
 
   ; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

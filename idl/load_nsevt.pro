@@ -9,7 +9,9 @@ pro load_nsevt,fname,evt,hdrinfo
   ;   evt        - The event list structure
   ;   hdrinfo    - The useful header info 
   ;
- 
+  ; Based on code from BG
+  ; https://github.com/NuSTAR/nustar_solar/blob/master/util_ssw/nustar_make_map_obj.pro
+  ; 
   ; 11-Feb-2018 IGH
   ; 11-May-2018 IGH   Tidied up comments
   ; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

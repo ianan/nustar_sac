@@ -6,7 +6,9 @@ pro load_nschu,fname,chustr
   ;   fname      - Name of the chu file (full directory listing)
   ; Output
   ;   chu        - The CHU structure
-  ; Option
+  ; 
+  ; Based on code from BG/KKM 
+  ; https://github.com/NuSTAR/nustar_solar/blob/master/depricated/solar_mosaic_20150429/read_chus.pro
   ;
   ; 11-May-2018 IGH
   ; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

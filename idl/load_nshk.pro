@@ -19,6 +19,6 @@ pro load_nshk,fname,hk,cor=cor
  
   hkin = mrdfits(fname, 1, hkhdr,/silent)
   
-  hk={hk_time:anytim(hkin.time+anytim('01-Jan-2010')-timcor),livetime:hkin.livetime}
+  hk={time:anytim(hkin.time+anytim('01-Jan-2010')-timcor),livetime:hkin.livetime}
   
 end

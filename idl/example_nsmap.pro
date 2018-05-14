@@ -19,6 +19,7 @@ pro example_nsmap
 
   ; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ; Filter the file for grade 0 events with energy 2 to 4 keV
+  ;  filter_nsevt,evt,evtfbp,grade=0,engrng=[2,4],/badpix,fpmid='A'
   filter_nsevt,evt,evtf,grade=0,engrng=[2,4]
 
   ; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -74,31 +75,30 @@ pro example_nsmap
   ;  map_nsevt,evtf2124,hdr,mapg2124,xrange=[-1500,-500],yrange=[-500,500]
   ;  plot_map,mapg2124,/limb,grid_spacing=15,title='Grade 21-24'
   ;
-
-;  ; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-;  ; Filter for grade 0 and per det and then plot
-;  filter_nsevt,evt,evtf00,grade=0,detid=0
-;  filter_nsevt,evt,evtf01,grade=0,detid=1
-;  filter_nsevt,evt,evtf02,grade=0,detid=2
-;  filter_nsevt,evt,evtf03,grade=0,detid=3
-;
-;  loadct,39,/silent
-;  clearplot
-;  !p.multi=[0,2,2]
-;  !p.charsize=0.8
-;  window,3,xsize=500,ysize=500
-;
-;  ; Make and plot a map
-;  map_nsevt,evtf00,hdr,mapg00,xrange=[-1450,-350],yrange=[-600,500],/gsmooth
-;  map_nsevt,evtf01,hdr,mapg01,xrange=[-1450,-350],yrange=[-600,500],/gsmooth
-;  map_nsevt,evtf02,hdr,mapg02,xrange=[-1450,-350],yrange=[-600,500],/gsmooth
-;  map_nsevt,evtf03,hdr,mapg03,xrange=[-1450,-350],yrange=[-600,500],/gsmooth
-;  plot_map,mapg00,/limb,grid_spacing=15,title='Grade 0, Det 0',/log,dmn=1,dmax=1e2
-;  plot_map,mapg01,/limb,grid_spacing=15,title='Grade 0, Det 1',/log,dmn=1,dmax=1e2
-;  plot_map,mapg02,/limb,grid_spacing=15,title='Grade 0, Det 2',/log,dmn=1,dmax=1e2
-;  plot_map,mapg03,/limb,grid_spacing=15,title='Grade 0, Det 3',/log,dmn=1,dmax=1e2
-;
-;  ; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ;  ; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ;  ; Filter for grade 0 and per det and then plot
+  ;  filter_nsevt,evt,evtf00,grade=0,detid=0
+  ;  filter_nsevt,evt,evtf01,grade=0,detid=1
+  ;  filter_nsevt,evt,evtf02,grade=0,detid=2
+  ;  filter_nsevt,evt,evtf03,grade=0,detid=3
+  ;
+  ;  loadct,39,/silent
+  ;  clearplot
+  ;  !p.multi=[0,2,2]
+  ;  !p.charsize=0.8
+  ;  window,3,xsize=500,ysize=500
+  ;
+  ;  ; Make and plot a map
+  ;  map_nsevt,evtf00,hdr,mapg00,xrange=[-1450,-350],yrange=[-600,500],/gsmooth
+  ;  map_nsevt,evtf01,hdr,mapg01,xrange=[-1450,-350],yrange=[-600,500],/gsmooth
+  ;  map_nsevt,evtf02,hdr,mapg02,xrange=[-1450,-350],yrange=[-600,500],/gsmooth
+  ;  map_nsevt,evtf03,hdr,mapg03,xrange=[-1450,-350],yrange=[-600,500],/gsmooth
+  ;  plot_map,mapg00,/limb,grid_spacing=15,title='Grade 0, Det 0',/log,dmn=1,dmax=1e2
+  ;  plot_map,mapg01,/limb,grid_spacing=15,title='Grade 0, Det 1',/log,dmn=1,dmax=1e2
+  ;  plot_map,mapg02,/limb,grid_spacing=15,title='Grade 0, Det 2',/log,dmn=1,dmax=1e2
+  ;  plot_map,mapg03,/limb,grid_spacing=15,title='Grade 0, Det 3',/log,dmn=1,dmax=1e2
+  ;
+  ;  ; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   stop
 end
