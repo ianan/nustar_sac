@@ -1,6 +1,6 @@
 # NuSTAR Solar Analysis Code - SSWIDL
 
-This code works with SSWIDL to load evt, hk and chu files, filter and produce time profiles and maps, as well as load pha/rmf/arf into [OSPEX](https://hesperia.gsfc.nasa.gov/ssw/packages/spex/doc/ospex_explanation.htm) for spectral fitting.
+This code works with [SSWIDL](http://www.lmsal.com/solarsoft/ssw_setup.html) to load evt, hk and chu files, filter and produce time profiles and maps, as well as load pha/rmf/arf into [OSPEX](https://hesperia.gsfc.nasa.gov/ssw/packages/spex/doc/ospex_explanation.htm) for spectral fitting.
 
 ### Examples
 * [*example_nslct.pro*](https://github.com/ianan/nsigh/blob/master/idl/example_nslct.pro) - Load in evt, hk and chu files and plot time profiles of them
