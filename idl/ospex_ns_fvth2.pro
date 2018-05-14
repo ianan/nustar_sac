@@ -1,5 +1,6 @@
-pro ospex_ns_fvth2,fiter=fiter, fitermid=fitermid,noplot=noplot, uncert_val=uncert_val,$
-  dir=dir, fname=fname,fout=fout,de=de,spcer=spcer,pltxr=pltxr,pltyr=pltyr
+pro ospex_ns_fvth2,fiter=fiter, midfiter=midfiter,noplot=noplot, uncert_val=uncert_val,$
+  dir=dir, fname=fname,fout=fout,de=de,spcer=spcer,pltxr=pltxr,pltyr=pltyr,$
+  fixed=fixed,tmkfixed=tmkfixed,emfixed=emfixed
 
   ; Do a double thermal spectral fit to some NuSTAR pha, rmf and arf data
   ; For more info on OSPEX see http://hesperia.gsfc.nasa.gov/ssw/packages/spex/doc/ospex_explanation.htm
@@ -7,7 +8,10 @@ pro ospex_ns_fvth2,fiter=fiter, fitermid=fitermid,noplot=noplot, uncert_val=unce
   ; options
   ;
   ;   fiter       -  Energy range to fit over (default is 2.5 to last bin with >10 counts)
-  ;   fitermid    -  Energy range to fit up to on first thermal fit (default 4, should be <fiter[0])
+  ;   midfiter    -  Energy range to fit up to on first thermal fit (default 4, should be <fiter[0])
+  ;   fixed       -  Don't fit one of the thermal components (default off)
+  ;   tmkfixed      -  Temperature, in MK, of fixed component (default 5.0MK)
+  ;   emfixed     -  Emission Measure, in cm^-3, of fixed component (default 1d44)
   ;   noplot      -  Don't produce a plot
   ;   uncert_val  -  Systematic error to add to ospex via spex_uncert=uncert_val
   ;   dir         -  Where are your pha, rmf and arf files?
@@ -26,6 +30,8 @@ pro ospex_ns_fvth2,fiter=fiter, fitermid=fitermid,noplot=noplot, uncert_val=unce
   if (n_elements(fname) ne 1) then fname='nu20110114001A06_chu23_S_cl_grade0_sr'
   if (n_elements(fout) ne 1) then fout=fname
   if (n_elements(spcer) ne 2) then spcer=[1.6,10]
+  if (n_elements(tmkfixed) ne 1) then tmkfixed=5
+  if (n_elements(emfixed) ne 1) then emfixed=1d44
   
   if (n_elements(de) eq 1) then load_nsspec, dir+fname,specstr, spcer=spcer,de=de $
     else load_nsspec, dir+fname,specstr, spcer=spcer
@@ -93,19 +99,28 @@ pro ospex_ns_fvth2,fiter=fiter, fitermid=fitermid,noplot=noplot, uncert_val=unce
   o->set, fit_function='vth+vth'
   o->set, fit_comp_minima= [1e-10, 0.1, 0.5,1e-10, 0.1, 0.5]
   o->set, fit_comp_maxima= [1e10,2.0, 1.5,1e10,2.0, 1.5]
-  o->set, fit_comp_param=[1.0, 0.25, 1,1.0, 0.25, 1]
-
+  o->set, fit_comp_param=[1.0, 0.25, 1,1e-2, 0.25, 1]
   
-  ; Initially do the fit over the lower energy range
-  if (n_elements(fitermid) ne 1) then fitermid=4
-  o->set, spex_erange=[fiter[0],fitermid]
+  if keyword_set(fixed) then begin
+     ; Then both over the whole energy range
+    o->set, spex_erange=fiter
+    o->set, fit_comp_param=[emfixed*1d-49, tmkfixed*0.08617, 1,1.0, 0.25, 1]
+    o->set, fit_comp_free = [0, 0, 0, 1, 1, 0]
+    o->dofit, /all
+  endif else begin
+    fixed=0
+    ; Initially do the fit over the lower energy range
+    if (n_elements(midfiter) ne 1) then midfiter=3.5
+    o->set, spex_erange=[fiter[0],midfiter]
     o->set, fit_comp_free = [1, 1, 0, 0, 0, 0]
-  o->dofit, /all
-  
-  ; Then both over the whole energy range
-  o->set, spex_erange=fiter
-  o->set, fit_comp_free = [1, 1, 0, 1, 1, 0]
-  o->dofit, /all
+    o->dofit, /all
+
+    ; Then both over the whole energy range
+    o->set, spex_erange=fiter
+    o->set, fit_comp_free = [1, 1, 0, 1, 1, 0]
+    o->dofit, /all
+  endelse
+
 
   ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ; get the resulting fitted spectrum model and params
@@ -130,15 +145,18 @@ pro ospex_ns_fvth2,fiter=fiter, fitermid=fitermid,noplot=noplot, uncert_val=unce
   ;
   engs=get_edges(model.ct_energy,/mean)
   np=n_elements(engs)
-
+  
   ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ; Save all the spectra and fit info out
-  fit_out={fname:fname,fpmid:fpmid,timer:[t1,t2],dur:livetime,ontime:ontime,$
+  fit_out={fixed:fixed,fname:fname,fpmid:fpmid,timer:[t1,t2],dur:livetime,ontime:ontime,$
     eranfit:eranfit,eengs:model.ct_energy,engs:engs,$
     parm:parm,parmerr:parmerr,chisq:chisq[0],$
-    cnt:counts,ecnt:sqrt(counts),cnt_mod:model.yvals[*]*dE*livetime,$
-    cnt_flx:obs,ecnt_flx:err,cnt_flx_mod:model.yvals[*],$
-    ph_flx:pobs,eph_flx:perr,ph_flx_mod:pmodel.yvals[*]}
+    cnt:counts,ecnt:sqrt(counts),cnt_mod:model.yvals[*,0]*dE*livetime,$
+    cnt_mod1:model.yvals[*,1]*dE*livetime,cnt_mod2:model.yvals[*,2]*dE*livetime,$
+    cnt_flx:obs,ecnt_flx:err,cnt_flx_mod:model.yvals[*,0],$
+    cnt_flx_mod1:model.yvals[*,1],cnt_flx_mod2:model.yvals[*,2],$
+    ph_flx:pobs,eph_flx:perr,ph_flx_mod:pmodel.yvals[*,0],$
+    ph_flx_mod1:pmodel.yvals[*,1],ph_flx_mod2:pmodel.yvals[*,2]}
   
   save,file='fitvth2_'+fout+'.dat',fit_out
 
@@ -148,7 +166,7 @@ pro ospex_ns_fvth2,fiter=fiter, fitermid=fitermid,noplot=noplot, uncert_val=unce
   if (n_elements(pltyr) ne 2) then pltyr=[1.5,2e3]
   ;  if (keyword_set(noplot) ne 1 and float(!version.release) ge 8.0) then $
   ;    plotf_ospex_ns_fvth2, fit_out,xlim=pltxr,ylim=pltyr,outname=fout else $
-  if (keyword_set(noplot) ne 1 ) then plotp_ospex_ns_fvt2, fit_out,xlim=pltxr,ylim=pltyr,outname=fout
+  if (keyword_set(noplot) ne 1 ) then plotp_ospex_ns_fvth2, fit_out,xlim=pltxr,ylim=pltyr,outname=fout
 
   ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
