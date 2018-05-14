@@ -1,15 +1,16 @@
-pro plotf_ospex_ns_fvth,f,plter=plter,outname=outname,ylim=ylim
+pro plotf_ospex_ns_fvth,f,xlim=xlim,outname=outname,ylim=ylim
 
   ; Plot the output sturcture from the OSPEX single thermal fit in ospex_ns_fvth.pro
   ;
   ; Note: uses the plot function objects that only really work in recent IDL >8.3 (?)
   ;
-  ;  options
-  ;     plter   -   2d array of energy range to plot over
+  ;  Options
+  ;     xlim   -   2d array of energy range to plot over
   ;     outname -   postfixname to figure output (default fname from fit stucture)
   ;     ylim    -   2d array of yrange to plot over
   ;
   ; 15-Nov-2017 IGH
+  ; 14-May-2017 IGH   Reanmed plter to xlim
   ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   
   w=window(dimensions=[350,450],/buffer)
@@ -23,7 +24,7 @@ pro plotf_ospex_ns_fvth,f,plter=plter,outname=outname,ylim=ylim
   id=where(f.cnt_flx gt 0.,nid)
 
   p0=plot(f.engs,f.cnt_flx,/ylog,/nodata,lines=6,symbol='d',title=f.fpmid+' '+anytim(f.timer[0],/yoh,/trunc),$
-    yrange=ylim,xrange=plter,ytickunits='Scientific',sym_thick=1,sym_size=1,font_size=11,$
+    yrange=ylim,xrange=xlim,ytickunits='Scientific',sym_thick=1,sym_size=1,font_size=11,$
     xtitle='',ytitle='count s!U-1!N keV!U-1!N',position=[0.175,0.3,0.975,0.94],/current,xtickformat='(a1)',location=[0,0])
 
   for i=0,nid-1 do !null=plot(f.engs[id[i]]*[1,1],[flxmin[id[i]],flxmax[id[i]]],thick=1,/over,/current)
@@ -38,9 +39,9 @@ pro plotf_ospex_ns_fvth,f,plter=plter,outname=outname,ylim=ylim
   bd=where(finite(resd) ne 1)
   resd[bd]=0
   pres=plot(f.engs,resd,$
-    yrange=[-4.5,4.5],xrange=plter,xtit='Energy [keV]',/stair,thick=1,$
+    yrange=[-4.5,4.5],xrange=xlim,xtit='Energy [keV]',/stair,thick=1,$
     position=[0.175,0.08,0.975,0.28],ytit='(Obs-Mod)/Err',/current,font_size=11)
-  !null=plot(plter,[0,0],lines=1,/current,/over)
+  !null=plot(xlim,[0,0],lines=1,/current,/over)
 
   !null=text(320,390,string(f.parm[1]/tkev,format='(f4.1)')+'$\pm$'+$
     ;    string(f.parmerr[1]/tkev,format='(f4.2)')+' MK ('+string(f.parm[1],format='(f4.2)')+' keV)',$

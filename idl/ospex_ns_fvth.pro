@@ -7,7 +7,7 @@ pro ospex_ns_fvth,fiter=fiter, noplot=noplot, uncert_val=uncert_val,$
   ; options
   ;
   ;   fiter       -  Energy range to fit over (default is 2.5 to last bin with >10 counts)
-  ;   noplot      -   Don't produce a plot
+  ;   noplot      -  Don't produce a plot
   ;   uncert_val  -  Systematic error to add to ospex via spex_uncert=uncert_val
   ;   dir         -  Where are your pha, rmf and arf files?
   ;   fname       -  What's the name/id of your pha, rmf and arf file?
@@ -133,15 +133,15 @@ pro ospex_ns_fvth,fiter=fiter, noplot=noplot, uncert_val=uncert_val,$
     cnt_flx:obs,ecnt_flx:err,cnt_flx_mod:model.yvals[*],$
     ph_flx:pobs,eph_flx:perr,ph_flx_mod:pmodel.yvals[*]}
 
-  save,file='fitvth_'+fname+'.dat',fit_out
+  save,file='fitvth_'+fout+'.dat',fit_out
 
   ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ; Make a plot of the spectra and fit
   if (n_elements(pltxr) ne 2) then pltxr=[2.0,6]
   if (n_elements(pltyr) ne 2) then pltyr=[1.5,2e3]
   ;  if (keyword_set(noplot) ne 1 and float(!version.release) ge 8.0) then $
-  ;    plotf_ospex_ns_fvth, fit_out,plter=plter,ylim=[1.5,2e3] else $
-  if (keyword_set(noplot) ne 1 ) then plotp_ospex_ns_fvth, fit_out,plter=pltxr,ylim=pltyr
+  ;    plotf_ospex_ns_fvth, fit_out,xlim=pltxr,ylim=pltyr,outname=fout else $
+  if (keyword_set(noplot) ne 1 ) then plotp_ospex_ns_fvth, fit_out,xlim=pltxr,ylim=pltyr,outname=fout
 
   ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

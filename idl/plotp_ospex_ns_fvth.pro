@@ -1,15 +1,16 @@
-pro plotp_ospex_ns_fvth,f,plter=plter,outname=outname,ylim=ylim
+pro plotp_ospex_ns_fvth,f,xlim=xlim,outname=outname,ylim=ylim
 
   ; Plot the output sturcture from the OSPEX single thermal fit in ospex_ns_fvth.pro
   ;
   ; Note: uses the plot procedure so should work with all version of IDL
   ;
   ;  options
-  ;     plter   -   2d array of energy range to plot over
+  ;     xlim    -   2d array of xrange to plot over
   ;     outname -   postfixname to figure output (default fname from fit stucture)
   ;     ylim    -   2d array of yrange to plot over
   ;
   ; 15-Nov-2017 IGH
+  ; 14-May-2017 IGH   Reanmed plter to xlim
   ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   w=window(dimensions=[350,450],/buffer)
@@ -36,7 +37,7 @@ pro plotp_ospex_ns_fvth,f,plter=plter,outname=outname,ylim=ylim
     bits=8, xsize=4, ysize=5,file='fitvth_'+outname+'.eps'
 
   plot,f.engs,f.cnt_flx,/ylog,/nodata,title=f.fpmid+' '+anytim(f.timer[0],/yoh,/trunc),yrange=ylim,ytickf='exp1',$
-    xrange=plter,xtitle='',ytitle='count s!U-1!N keV!U-1!N',position=[0.175,0.3,0.975,0.94],xtickformat='(a1)'
+    xrange=xlim,xtitle='',ytitle='count s!U-1!N keV!U-1!N',position=[0.175,0.3,0.975,0.94],xtickformat='(a1)'
 
   for i=0,nid-1 do oplot,f.engs[id[i]]*[1,1],[flxmin[id[i]],flxmax[id[i]]],thick=2
   for i=0,nid-1 do oplot,f.eengs[*,id[i]],f.cnt_flx[id[i]]*[1,1],thick=2
@@ -48,9 +49,9 @@ pro plotp_ospex_ns_fvth,f,plter=plter,outname=outname,ylim=ylim
   resd=(f.cnt_flx-f.cnt_flx_mod)/f.ecnt_flx
   bd=where(finite(resd) ne 1)
   resd[bd]=0
-  plot,f.engs,resd,yrange=[-4.5,4.5],xrange=plter,xtit='Energy [keV]',psym=10,thick=2,$
+  plot,f.engs,resd,yrange=[-4.5,4.5],xrange=xlim,xtit='Energy [keV]',psym=10,thick=2,$
     position=[0.175,0.1,0.975,0.29],ytit='(Obs-Mod)/Err'
-  oplot,plter,[0,0],lines=1,thick=2
+  oplot,xlim,[0,0],lines=1,thick=2
 
   xyouts,9.6e3,11e3,string(f.parm[1]/tkev,format='(f4.1)')+string(177b)+string(f.parmerr[1]/tkev,format='(f4.2)')+' MK',$
     /device,color=ct1,align=1,chars=1.1
