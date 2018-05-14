@@ -19,8 +19,8 @@ This code works with [SSWIDL](http://www.lmsal.com/solarsoft/ssw_setup.html) to 
 * [*map_nsevt.pro*](https://github.com/ianan/nsigh/blob/master/idl/map_nsevt.pro) - Make a SSWIDL map structure from a evt stucture loaded in via  [*load_nsevt.pro*](https://github.com/ianan/nsigh/blob/master/idl/load_nsevt.pro)
 
 ### Spectral Fitting Code
-* [*ospex_ns_fvth.pro*](https://github.com/ianan/nsigh/blob/master/idl/ospex_ns_fvth.pro) - Loads in a pha/rmf/arf using load_ns_spec.pro and does a single thermal fit
-* [*ospex_ns_fvth2.pro*](https://github.com/ianan/nsigh/blob/master/idl/ospex_ns_fvth2.pro) - Loads in a pha/rmf/arf using load_ns_spec.pro and does a two thermal fit (one component can be fixed)
+* [*ospex_ns_fvth.pro*](https://github.com/ianan/nsigh/blob/master/idl/ospex_ns_fvth.pro) - Loads in a pha/rmf/arf using and does a single thermal fit
+* [*ospex_ns_fvth2.pro*](https://github.com/ianan/nsigh/blob/master/idl/ospex_ns_fvth2.pro) - Loads in a pha/rmf/arf and does a two thermal fit (one component can be fixed)
 * [*plotf_ospex_ns_fvth.pro*](https://github.com/ianan/nsigh/blob/master/idl/plotf_ospex_ns_fvth.pro) - Plot the output from ospex_ns_fvth.pro using IDL 8+ plot() function
 * [*plotp_ospex_ns_fvth.pro*](https://github.com/ianan/nsigh/blob/master/idl/plotp_ospex_ns_fvth.pro) - Plot the output from ospex_ns_fvth.pro using IDL plot procedure
 * [*plotp_ospex_ns_fvth2.pro*](https://github.com/ianan/nsigh/blob/master/idl/plotp_ospex_ns_fvth2.pro) - Plot the output from ospex_ns_fvth2.pro using IDL plot procedure
