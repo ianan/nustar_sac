@@ -24,6 +24,7 @@ pro ospex_ns_fvth2,fiter=fiter, fitermid=fitermid,noplot=noplot, uncert_val=unce
   ; Load in the spectrum files - IGH defaults, you should obviously change
   if (n_elements(dir) ne 1) then dir='~/OneDrive - University of Glasgow/work/ns_data/simple_idl/testxout/'
   if (n_elements(fname) ne 1) then fname='nu20110114001A06_chu23_S_cl_grade0_sr'
+  if (n_elements(fout) ne 1) then fout=fname
   if (n_elements(spcer) ne 2) then spcer=[1.6,10]
   
   if (n_elements(de) eq 1) then load_nsspec, dir+fname,specstr, spcer=spcer,de=de $
