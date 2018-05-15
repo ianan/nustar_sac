@@ -1,5 +1,6 @@
 pro ospex_ns_fvth,fiter=fiter, noplot=noplot, uncert_val=uncert_val,$
-  dir=dir, fname=fname,fout=fout,de=de,spcer=spcer,pltxr=pltxr,pltyr=pltyr
+  dir=dir, fname=fname,fout=fout,de=de,spcer=spcer,pltxr=pltxr,pltyr=pltyr,$
+  mca=mca
 
   ; Do a single thermal spectral fit to some NuSTAR pha, rmf and arf data
   ; For more info on OSPEX see http://hesperia.gsfc.nasa.gov/ssw/packages/spex/doc/ospex_explanation.htm
@@ -16,12 +17,14 @@ pro ospex_ns_fvth,fiter=fiter, noplot=noplot, uncert_val=uncert_val,$
   ;   de          -  Energy binning for loaded data (dedault is original 0.04 keV)
   ;   pltxr       -  x-range for output plot
   ;   pltyr       -  y-range for output plot
+  ;   mca         -  Perform OSPEX Monte Carlo Analysis (default no) - can take a while to run
   ;   
   ; 14-Nov-2017 IGH
   ; 22-Jan-2018 IGH   Optional de= to load_nsspec to rebin into larger dE from de=0.04
   ; 22-Mar-2018 IGH   Option for dir and fname
   ; 10-May-2018 IGH   Option for de (energy binning) and spcer (energy range) for loading data in
   ; 14-May-2018 IGH   Now works we renamed load_nsspec
+  ; 15-May-2018 IGH   Added OSPEX Monte Carlo analysis
   ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   ; Load in the spectrum files - IGH defaults, you should obviously change
@@ -144,5 +147,10 @@ pro ospex_ns_fvth,fiter=fiter, noplot=noplot, uncert_val=uncert_val,$
   if (keyword_set(noplot) ne 1 ) then plotp_ospex_ns_fvth, fit_out,xlim=pltxr,ylim=pltyr,outname=fout
 
   ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ; Run the Monte Carlo Error Analysis - this can take a while to run
+  if keyword_set(mca) then begin
+    o -> monte_carlo, niter=1e3, interval=0,savefile='mca_vth_'+fout+'.sav'
+  endif
+  
 
 end

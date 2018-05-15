@@ -19,6 +19,12 @@ pro example_nsospex
 
   ; Single thermal fit, output file and plot, with rebinning to dE=0.2
   ospex_ns_fvth,dir=msdir, fname=fname,fout='test2',de=0.2
+  
+  ; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ; Single thermal fit, output file and plot with Monte Carlo Error Analysis
+  ; Can take a while to run
+  ospex_ns_fvth,dir=msdir, fname=fname,fout='test1m',/mca
+  plotp_ospex_ns_mca,'test1m'
 
   ; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ; Two thermal fits, output file and plot

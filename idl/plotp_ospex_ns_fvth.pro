@@ -13,7 +13,6 @@ pro plotp_ospex_ns_fvth,f,xlim=xlim,outname=outname,ylim=ylim
   ; 14-May-2017 IGH   Reanmed plter to xlim
   ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  w=window(dimensions=[350,450],/buffer)
   tkev=0.08617
   mrg=0.2
   if (n_elements(ylim) ne 2) then ylim=[0.5*min(f.cnt_flx[where(f.cnt_flx gt 0)]),2*max(f.cnt_flx)]
