@@ -6,7 +6,7 @@ This code works with [SSWIDL](http://www.lmsal.com/solarsoft/ssw_setup.html) to 
 * [*example_nslct.pro*](https://github.com/ianan/nsigh/blob/master/idl/example_nslct.pro) - Load in evt, hk and chu files and plot time profiles of them
 * [*example_nsmap.pro*](https://github.com/ianan/nsigh/blob/master/idl/example_nsmap.pro) - Load in an evt, do some filtering, produce and plot some different maps
 * [*example_nsospex.pro*](https://github.com/ianan/nsigh/blob/master/idl/example_nsospex.pro) - Use OSPEX to fit a set of pha, arf and rmf files
-* [*example_nstresp.pro*](https://github.com/ianan/nsigh/blob/master/idl/example_nstresp.pro) - From a set of pha, arf, rmf, files make and plot the Temperature response and EM Loci plot
+* [*example_nstresp.pro*](https://github.com/ianan/nsigh/blob/master/idl/example_nstresp.pro) - From a set of pha, arf, rmf, files make and plot the temperature response and EM Loci
 
 
 ### NuSTAR Generic Code
