@@ -6,6 +6,8 @@ This code works with [SSWIDL](http://www.lmsal.com/solarsoft/ssw_setup.html) to 
 * [*example_nslct.pro*](https://github.com/ianan/nsigh/blob/master/idl/example_nslct.pro) - Load in evt, hk and chu files and plot time profiles of them
 * [*example_nsmap.pro*](https://github.com/ianan/nsigh/blob/master/idl/example_nsmap.pro) - Load in an evt, do some filtering, produce and plot some different maps
 * [*example_nsospex.pro*](https://github.com/ianan/nsigh/blob/master/idl/example_nsospex.pro) - Use OSPEX to fit a set of pha, arf and rmf files
+* [*example_nstresp.pro*](https://github.com/ianan/nsigh/blob/master/idl/example_nstresp.pro) - From a set of pha, arf, rmf, files make and plot the Temperature response and EM Loci plot
+
 
 ### NuSTAR Generic Code
 * [*load_nsevt.pro*](https://github.com/ianan/nsigh/blob/master/idl/load_nsevt.pro) - Routine to load in a specified event list, evt, file
@@ -13,6 +15,7 @@ This code works with [SSWIDL](http://www.lmsal.com/solarsoft/ssw_setup.html) to 
 * [*load_nshk.pro*](https://github.com/ianan/nsigh/blob/master/idl/load_nshk.pro) - Routine to load in a specific house keeping, hk, file
 * [*load_nschu.pro*](https://github.com/ianan/nsigh/blob/master/idl/load_nschu.pro) - Routine to load in a specific camera head unit, chu, file
 * [*load_nsspec.pro*](https://github.com/ianan/nsigh/blob/master/idl/load_nsspec.pro) - Routine to load in a given pha/rmf/arf files
+* [*make_nstresp.pro*](https://github.com/ianan/nsigh/blob/master/idl/make_nstresp.pro) - Routine to make temperature response from given pha/rmf/arf files
 
 ### Mapping & Time Profile Code
 * [*time_nsevt.pro*](https://github.com/ianan/nsigh/blob/master/idl/time_nsevt.pro) - Make a time profile (counts and rate vs time) from a evt stucture loaded in via  [*load_nsevt.pro*](https://github.com/ianan/nsigh/blob/master/idl/load_nsevt.pro)
