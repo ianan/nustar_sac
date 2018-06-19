@@ -1,4 +1,4 @@
-pro make_nstresp,fname,tresp_str,ebands=ebands,spcer=spcer
+pro make_nstresp,fname,tresp_str,ebands=ebands,spcer=spcer,ntr=ntr
 
   ; Make a NuSTAR thermal response for given energy ranges and observation
   ; 
@@ -18,8 +18,10 @@ pro make_nstresp,fname,tresp_str,ebands=ebands,spcer=spcer
   ; Option
   ;   ebands    -  Energy bands to work out response over (default 2.5-4, 4-6, 6-10 keV)
   ;   spcer     -  Energy range of response to use (default [1.6,40])
+  ;   ntr       -  Number of temperature bins for the response
   ;
-  ; 15-May-2017 IGH
+  ; 15-May-2018 IGH
+  ; 18-Jun-2018 IGH   Added option to increase number of temperature bins
   ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   if (n_elements(fname) ne 1) then $
     fname='~/OneDrive - University of Glasgow/work/ns_data/simple_idl/testxout/nu20110114001A06_chu23_S_cl_grade0_sr'
@@ -39,11 +41,18 @@ pro make_nstresp,fname,tresp_str,ebands=ebands,spcer=spcer
   
   ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ; Use same temperature binning as aia_get_response() though need f_vth only works >1MK
-  logt=6.05+indgen(40)*0.05
+  
+  if (n_elements(ntr) ne 1) then ntr=40
+  dt=(8.0-6.0)/ntr
+  ; f_vth only works from 6.01 so make sure don't go below that
+  if (dt lt 0.01) then logt=6.01+indgen(ntr)*dt else logt=6.0+dt+indgen(ntr)*dt
+
   tmk=10d^logt*1d-6
   tf=0.08617
   tkev=tmk*tf
   nt=n_elements(logt)
+  
+;  stop
   
   modrate=dblarr(nt,nengs)
   ; This should be in units of [counts cm^3/s] = [counts cm^2/photons]*[photons/cm^2/s/keV]*[keV]/cm^-3
