@@ -57,8 +57,12 @@ pro plotp_ospex_ns_fvth,f,xlim=xlim,outname=outname,ylim=ylim,outdir=outdir
 
   xyouts,9.6e3,11e3,string(f.parm[1]/tkev,format='(f4.1)')+string(177b)+string(f.parmerr[1]/tkev,format='(f4.2)')+' MK',$
     /device,color=ct1,align=1,chars=1.1
-  xyouts,9.6e3,10.2e3,string(f.parm[0]*1e3,format='(f4.1)')+string(177b)+string(f.parmerr[0]*1e3,format='(f4.2)')+$
-    'x10!U46!Ncm!U-3!N',/device,color=ct1,align=1,chars=1.1
+    
+  powems=floor(alog10(f.parm[0]*1d49))
+  ems=string(f.parm[0]*1d49*10d^(-1*powems),format='(f4.2)')
+  emser=string(f.parmerr[0]*1d49*10d^(-1*powems),format='(f4.2)')
+  xyouts,9.6e3,10.2e3,ems+string(177b)+emser+$
+    ' x10!U'+string(powems,format='(i2)')+'!Ncm!U-3!N',/device,color=ct1,align=1,chars=1.1
   xyouts,9.6e3,9.4e3,'!Mc!3!U2!N= '+strcompress(string(f.chisq,format='(f5.1)'),/rem),/device,color=ct1,align=1,chars=1.1
 
   device,/close
