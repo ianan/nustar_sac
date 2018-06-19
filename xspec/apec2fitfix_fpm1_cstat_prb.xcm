@@ -1,0 +1,78 @@
+########################################################
+## Fit one NuSTAR FPM with two thermal APEC model - one fixed, one fitted
+## with the new Feld 92A coronal abundances - this is actual solar coronal, unlike "abund feld" in xspec
+## Also using c-stat for fitting statistics - best choice when some low count bins
+## This version also rebins the data into larger energy bins for plotting only - does not effect the fit
+## 
+##    Run as @apec2fit_fpm1_cstat_prb.xcm in xspec, but manually need to do the last few lines in iplot
+## 
+## 19-Jun-2018 IGH Started based on apec1fit_fpm1_cstat_prb.xcm
+########################################################
+
+## Name of the pha file 
+data 1:1 nu20201006001A06_chu3_S_cl_grade0_sr.pha
+
+## Use the c-stat for fitting 
+statistic cstat
+
+## Fit over 2.5 to 3.5 initially
+ignore *:0.-2.5 5.5-**
+
+## This does rebinning of the data for plotting not for fitting, fit done at *.pha energy resolution 
+setplot rebin 25 3
+
+## Plot the data to check it looks ok
+setplot energy
+cpd /xw
+plot
+
+## Choose APEC for the model, VAPEC basically the same as APEC, but more control over abundances (use "abund" command instead)
+## All models here https://heasarc.gsfc.nasa.gov/xanadu/xspec/manual/Models.html
+model apec+apec
+/*
+
+## Fixed values from a pre-event spectral fit
+freeze 5 8
+## This is the fix T in keV
+newpar 5 0.279158
+## This is the fixed EM in the normalised units of APEC par = EM * 3.5557d-42
+newpar 8 156336
+
+renorm
+## Load in actual coronal abundances - "abund feld" is really photospheric!
+abund file feld92a_coronal0.txt
+fit 1000
+
+
+## Plot the fit to the data
+setplot add
+setplot xlog off
+plot ldata ratio
+
+## Show free parameters
+show free
+
+## Show fit values
+show fit
+
+## Want the errors calculated as well?
+## By default its 2.706\sig (90% conf) but want 1\sig 
+error 1.0 1 4
+
+## Need to thaw otherwise wont be written out
+thaw 5 8
+
+## Write out the fit results
+## Careful as the following line will apend to this file if it already exists, instead of overwriting it
+writefits mod_apec2fitfix_fpma_cstat_prb.fits
+
+notice *: 2.0-7.0
+
+## Write out the plot of the spectrum and fit
+## Need to run the next two lines manually
+
+#iplot ldata ufspec rat
+#wdata mod_apec2fitfix_fpma_cstat_prb.txt
+#exit
+
+
