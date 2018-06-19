@@ -1,4 +1,4 @@
-pro plotf_ospex_ns_fvth,f,xlim=xlim,outname=outname,ylim=ylim
+pro plotf_ospex_ns_fvth,f,xlim=xlim,outname=outname,ylim=ylim,outdir=outdir
 
   ; Plot the output sturcture from the OSPEX single thermal fit in ospex_ns_fvth.pro
   ;
@@ -7,10 +7,11 @@ pro plotf_ospex_ns_fvth,f,xlim=xlim,outname=outname,ylim=ylim
   ;  Options
   ;     xlim   -   2d array of energy range to plot over
   ;     outname -   postfixname to figure output (default fname from fit stucture)
+  ;     outdir  -   output directory for the figure
   ;     ylim    -   2d array of yrange to plot over
   ;
   ; 15-Nov-2017 IGH
-  ; 14-May-2017 IGH   Reanmed plter to xlim
+  ; 14-May-2018 IGH   Renamed plter to xlim
   ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   
   w=window(dimensions=[350,450],/buffer)
@@ -52,8 +53,9 @@ pro plotf_ospex_ns_fvth,f,xlim=xlim,outname=outname,ylim=ylim
   !null=text(320,350,'$\chi^2=$ '+strcompress(string(f.chisq,format='(f5.1)'),/rem),/device,color=ct1,align=1,font_size=11)
 
   if (n_elements(outname) ne 1) then outname=f.fname
+  if (n_elements(outdir) ne 1) then outdir=''
 
-  w.save,'fitvth_'+outname+'.pdf',page_size=w.dimensions/100.
+  w.save,outdir+'fitvth_'+outname+'.pdf',page_size=w.dimensions/100.
   w.close
 
 end

@@ -1,4 +1,4 @@
-pro plotp_ospex_ns_fvth,f,xlim=xlim,outname=outname,ylim=ylim
+pro plotp_ospex_ns_fvth,f,xlim=xlim,outname=outname,ylim=ylim,outdir=outdir
 
   ; Plot the output sturcture from the OSPEX single thermal fit in ospex_ns_fvth.pro
   ;
@@ -7,10 +7,12 @@ pro plotp_ospex_ns_fvth,f,xlim=xlim,outname=outname,ylim=ylim
   ;  options
   ;     xlim    -   2d array of xrange to plot over
   ;     outname -   postfixname to figure output (default fname from fit stucture)
+  ;     outdir  -   output directory for figure
   ;     ylim    -   2d array of yrange to plot over
   ;
   ; 15-Nov-2017 IGH
-  ; 14-May-2017 IGH   Reanmed plter to xlim
+  ; 14-May-2018 IGH   Renamed plter to xlim
+  ; 19-Jun-2018 IGH   Added option for output figure directory
   ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   tkev=0.08617
@@ -23,6 +25,7 @@ pro plotp_ospex_ns_fvth,f,xlim=xlim,outname=outname,ylim=ylim
   id=where(f.cnt_flx gt 0.,nid)
 
   if (n_elements(outname) ne 1) then outname=f.fname
+  if (n_elements(outdir) ne 1) then outdir=''
 
   @post_outset
   !p.multi=[0,2,1]
@@ -33,7 +36,7 @@ pro plotp_ospex_ns_fvth,f,xlim=xlim,outname=outname,ylim=ylim
 
   set_plot,'ps'
   device, /encapsulated, /color, /isolatin1,/inches, $
-    bits=8, xsize=4, ysize=5,file='fitvth_'+outname+'.eps'
+    bits=8, xsize=4, ysize=5,file=outdir+'fitvth_'+outname+'.eps'
 
   plot,f.engs,f.cnt_flx,/ylog,/nodata,title=f.fpmid+' '+anytim(f.timer[0],/yoh,/trunc),yrange=ylim,ytickf='exp1',$
     xrange=xlim,xtitle='',ytitle='count s!U-1!N keV!U-1!N',position=[0.175,0.3,0.975,0.94],xtickformat='(a1)'

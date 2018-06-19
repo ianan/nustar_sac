@@ -1,4 +1,4 @@
-pro plotp_ospex_ns_fvth2,f,xlim=xlim,outname=outname,ylim=ylim
+pro plotp_ospex_ns_fvth2,f,xlim=xlim,outname=outname,ylim=ylim,outdir=outdir
 
   ; Plot the output sturcture from the OSPEX two thermal fit from ospex_ns_fvth2.pro
   ;
@@ -7,11 +7,13 @@ pro plotp_ospex_ns_fvth2,f,xlim=xlim,outname=outname,ylim=ylim
   ;  options
   ;     xlim    -   2d array of xrange to plot over
   ;     outname -   postfixname to figure output (default fname from fit stucture)
+  ;     outdir  -   output directory for figure
   ;     ylim    -   2d array of yrange to plot over
   ;
-  ; 14-May-2017 IGH   Based on plotp_ospex_ns_fvth2
+  ; 14-May-2018 IGH   Based on plotp_ospex_ns_fvth2
+  ; 19-Jun-2018 IGH   Added option for output figure directory
   ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  
+
   w=window(dimensions=[350,450],/buffer)
   tkev=0.08617
   mrg=0.2
@@ -23,6 +25,7 @@ pro plotp_ospex_ns_fvth2,f,xlim=xlim,outname=outname,ylim=ylim
   id=where(f.cnt_flx gt 0.,nid)
 
   if (n_elements(outname) ne 1) then outname=f.fname
+  if (n_elements(outdir) ne 1) then outdir=''
 
   @post_outset
   !p.multi=[0,2,1]
@@ -32,11 +35,11 @@ pro plotp_ospex_ns_fvth2,f,xlim=xlim,outname=outname,ylim=ylim
   ct0=13
   ct1=11
   ct2=1
-  
+
 
   set_plot,'ps'
   device, /encapsulated, /color, /isolatin1,/inches, $
-    bits=8, xsize=4, ysize=5,file='fitvth2_'+outname+'.eps'
+    bits=8, xsize=4, ysize=5,file=outdir+'fitvth2_'+outname+'.eps'
 
   plot,f.engs,f.cnt_flx,/ylog,/nodata,title=f.fpmid+' '+anytim(f.timer[0],/yoh,/trunc),yrange=ylim,ytickf='exp1',$
     xrange=xlim,xtitle='',ytitle='count s!U-1!N keV!U-1!N',position=[0.175,0.3,0.975,0.94],xtickformat='(a1)'
@@ -65,7 +68,7 @@ pro plotp_ospex_ns_fvth2,f,xlim=xlim,outname=outname,ylim=ylim
       string(alog10(f.parm[0]*1d49),format='(f4.1)')+string(177b)+string(alog10(f.parmerr[0]*1d49),format='(f4.1)')+$
       ') cm!U-3!N',/device,color=ct1,align=1,chars=0.9
   endelse
-    
+
   xyouts,9.6e3,10.2e3,string(f.parm[4]/tkev,format='(f4.1)')+string(177b)+string(f.parmerr[4]/tkev,format='(f4.2)')+' MK, 10^('+$
     string(alog10(f.parm[3]*1d49),format='(f4.1)')+string(177b)+string(alog10(f.parmerr[3]*1d49),format='(f4.1)')+$
     ') cm!U-3!N',/device,color=ct2,align=1,chars=0.9
@@ -73,5 +76,5 @@ pro plotp_ospex_ns_fvth2,f,xlim=xlim,outname=outname,ylim=ylim
 
   device,/close
   set_plot, mydevice
-   
+
 end

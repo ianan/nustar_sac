@@ -8,7 +8,7 @@ pro plotp_ospex_ns_mca,fname,outname=outname,ps=ps
   ;     outname -   postfixname to figure output (default fname from fit stucture)
   ;     ps      -   produce postscript plots of the parameter distributions/spread (default no)
   ;
-  ; 15-May-2017 IGH
+  ; 15-May-2018 IGH
   ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   if (n_elements(fname) ne 1) then fname='test1'
   if (n_elements(outname) ne 1) then outname=fname
