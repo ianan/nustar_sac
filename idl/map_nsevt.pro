@@ -17,7 +17,7 @@ pro map_nsevt, evt,hdr,nsmap,effexp=effexp,$
   ;   gsmooth  - Apply a gaussian smoothing to the map (default no)
   ;   gs_sig   - Sigma for gaussian smoothing (default 3 pixels)
   ;   rebin    - Apply a x,y rebinning to the map (default no)
-  ;   reb_npix - Number of pixels to rebin map to (same x,y and default is 128)
+  ;   rb_npix - Number of pixels to rebin map to (same x,y and default is 128)
   ;   xrange   - X-range of the output map in S/C arcsec (default not used)
   ;   yrange   - Y-range of the output map in S/C arcsec (default not used)
   ;   shxy     - Shift the x,y of the map in arcsec (default no)
