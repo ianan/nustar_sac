@@ -21,13 +21,14 @@ pro time_nsevt,evt,cts,hk,tbin=tbin,tstart=tstart,tend=tend
   ; 10-May-2018 IGH   Tidied up comments
   ; 11-May-2018 IGH   Added option for hk/livetime
   ; 03-Jun-2018 IGH   Added tstart/tend option
+  ; 21-Sep-2018 IGH	  Corrected tstat/tend default bug
   ; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ;
 
   ; default binning is 60s
   if (n_elements(tbin) ne 1) then tbin=60
-  if (n_elements(tstart) ne 1) then tstart=min(tt) else tstart=anytim(tstart)
-  if (n_elements(tend) ne 1) then tend=max(tt) else tend=anytim(tend)
+  if (n_elements(tstart) ne 1) then tstart=min(evt.time) else tstart=anytim(tstart)
+  if (n_elements(tend) ne 1) then tend=max(evt.time) else tend=anytim(tend)
   
   ; Just do it in seconds from start
   tt=evt.time-tstart
