@@ -27,6 +27,7 @@ pro map_nsevt, evt,hdr,nsmap,effexp=effexp,$
   ; 10-May-2018 IGH   Tidied up comments
   ; 21-May-2018 IGH   Option to crudely output map of det id
   ; 23-May-2018 IGH   Change map time to min value of evt.time, instead of hdr.tstart
+  ; 30-Sep-2018 IGH   Now will return map even if evt has <2 events
   ; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ;
 
@@ -37,7 +38,12 @@ pro map_nsevt, evt,hdr,nsmap,effexp=effexp,$
   im_width=round(im_size*2.)
 
   pixinds=evt.x+evt.y*hdr.npix
-  im_hist=histogram(pixinds, min=0, max=hdr.npix*hdr.npix-1, binsize=1)
+  if (n_elements(pixinds) gt 1) then begin
+    im_hist=histogram(pixinds, min=0, max=hdr.npix*hdr.npix-1, binsize=1)
+  endif else begin
+    im_hist=lonarr(hdr.npix*hdr.npix)
+  endelse
+  
   im=reform(im_hist, hdr.npix, hdr.npix)
 
   ims=im[(centerx-im_width):(centerx+im_width-1),(centery-im_width):(centery+im_width-1)]

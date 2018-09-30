@@ -3,6 +3,7 @@ pro example_nsmap
   ; Examples of using the sswidl code with NuSTAR data to make maps
   ;
   ; 11-May-2018 IGH
+  ; 30-Sep-2018 IGH  Updated plot_map example using new ns_lct color table indices
   ; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   ; Location and name of some NuSTAR data
@@ -33,15 +34,15 @@ pro example_nsmap
 
   ; Make and plot a map
   map_nsevt,evtf,hdr,map24
-  plot_map,map24,/limb,grid_spacing=15,xrange=[-1200,-600],yrange=[-200,400],/log,bot=1,gcolor=0,lcolor=0
+  plot_map,map24,/limb,grid_spacing=15,xrange=[-1200,-600],yrange=[-200,400],/log,bot=2,top=254,gcolor=1,lcolor=1
 
   ; Make another map but rebin the data and limit xy-range
   map_nsevt,evtf,hdr,map24rb,/rebin,xrange=[-1200,-600],yrange=[-200,400]
-  plot_map,map24rb,/limb,grid_spacing=15,bot=1,gcolor=0,lcolor=0
+  plot_map,map24rb,/limb,grid_spacing=15,bot=2,top=254,gcolor=1,lcolor=1
 
   ; Make another map but use gaussian smooth and limit xy-range
   map_nsevt,evtf,hdr,map24gs,/gsmooth,xrange=[-1200,-600],yrange=[-200,400]
-  plot_map,map24gs,/limb,grid_spacing=15,bot=1,gcolor=0,lcolor=0
+  plot_map,map24gs,/limb,grid_spacing=15,bot=2,top=254,gcolor=1,lcolor=1
 
   ; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ; Plot a full disk effective exposure normalised, smoothed map, similar to
@@ -52,7 +53,7 @@ pro example_nsmap
   !p.charsize=1
   window,1,xsize=600,ysize=600
   map_nsevt,evtf,hdr,map24gs,/gsmooth,xrange=[-1500,1500],yrange=[-1500,1500],/norm,shxy=[-30,20]
-  plot_map,map24gs,/limb,grid_spacing=15,bot=1,gcolor=0,lcolor=0,/log,dmin=1e-4,dmax=1e2
+  plot_map,map24gs,/limb,grid_spacing=15,bot=2,top=254,gcolor=1,lcolor=1,/log,dmin=1e-4,dmax=1e2
 
   ;  ; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ;  ; Filter for grade 0 and grades 21-24 and then plot
