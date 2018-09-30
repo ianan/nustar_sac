@@ -21,7 +21,7 @@ pro time_nsevt,evt,cts,hk,tbin=tbin,tstart=tstart,tend=tend
   ; 10-May-2018 IGH   Tidied up comments
   ; 11-May-2018 IGH   Added option for hk/livetime
   ; 03-Jun-2018 IGH   Added tstart/tend option
-  ; 21-Sep-2018 IGH   Corrected tstat/tend default bug
+  ; 21-Sep-2018 IGH   Corrected tstart/tend default bug
   ; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ;
 

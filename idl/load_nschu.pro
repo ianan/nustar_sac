@@ -64,6 +64,5 @@ pro load_nschu,fname,chustr
   if (nid123 gt 0) then newmask[id123]=7
     
   chustr={time:chutime,mask:newmask,lab:[' ','1','2','12','3','13','23','123',' ']}
-
  
 end

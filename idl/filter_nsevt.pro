@@ -28,7 +28,7 @@ pro filter_nsevt,evt,evtf,grade=grade,engrng=engrng,tmrng=tmrng,detid=detid,$
   ; 10-May-2018 IGH   Tidied up comments
   ; 11-May-2018 IGH   Corrected bug so that grade and det filtering works for array of grades/dets
   ; 14-May-2018 IGH   Added bad pixel removal
-  ; 30-Sep-2018 IGH   Chnaged default return when filters no met to 0, instead of original evt
+  ; 30-Sep-2018 IGH   Changed default return when filters no met to 0, instead of original evt
   ; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ;
 
