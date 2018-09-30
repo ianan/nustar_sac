@@ -3,7 +3,7 @@ pro filter_nsevt,evt,evtf,grade=grade,engrng=engrng,tmrng=tmrng,detid=detid,$
 
   ; Filter a NuSTAR solar coords evt file
   ;
-  ; By default will return the full evt if no filter has been used/worked
+  ; If no evt element matches filter just returns 0
   ;
   ; Both time and energy filter needs a range (2-element array) and returns
   ; range[0] <= data < range[1]
@@ -28,6 +28,7 @@ pro filter_nsevt,evt,evtf,grade=grade,engrng=engrng,tmrng=tmrng,detid=detid,$
   ; 10-May-2018 IGH   Tidied up comments
   ; 11-May-2018 IGH   Corrected bug so that grade and det filtering works for array of grades/dets
   ; 14-May-2018 IGH   Added bad pixel removal
+  ; 30-Sep-2018 IGH   Chnaged default return when filters no met to 0, instead of original evt
   ; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ;
 
@@ -45,21 +46,21 @@ pro filter_nsevt,evt,evtf,grade=grade,engrng=engrng,tmrng=tmrng,detid=detid,$
       endif
     endfor
     ngid=n_elements(gid)
-    if (ngid gt 0) then evtf=evtf[gid]
+    if (ngid gt 0) then evtf=evtf[gid] else evtf=0
   endif
 
   ; Filter to a specific energy range
   if (n_elements(engrng) eq 2) then begin
     pirng=long((engrng-1.6)/0.04)
     eid=where(evtf.pi ge pirng[0] and evtf.pi lt pirng[1],neid)
-    if (neid gt 0) then evtf=evtf[eid]
+    if (neid gt 0) then evtf=evtf[eid] else evtf=0
   endif
 
   ; Filter to a specific time range
   if (n_elements(tmrng) eq 2) then begin
     tr=anytim(tmrng)
     tid=where(evtf.time ge tr[0] and evtf.time lt tr[1],ntid)
-    if (ntid gt 0) then evtf=evtf[tid]
+    if (ntid gt 0) then evtf=evtf[tid] else evtf=0
   endif
 
   ; Filter down to one detector

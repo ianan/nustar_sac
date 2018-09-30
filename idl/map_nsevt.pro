@@ -28,6 +28,7 @@ pro map_nsevt, evt,hdr,nsmap,effexp=effexp,$
   ; 21-May-2018 IGH   Option to crudely output map of det id
   ; 23-May-2018 IGH   Change map time to min value of evt.time, instead of hdr.tstart
   ; 30-Sep-2018 IGH   Now will return map even if evt has <2 events
+  ;                   Added check for evt input to be eventlist structure
   ; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ;
 
@@ -36,8 +37,16 @@ pro map_nsevt, evt,hdr,nsmap,effexp=effexp,$
   centery=hdr.npix*0.5
   im_size=1400./hdr.pixsize
   im_width=round(im_size*2.)
-
-  pixinds=evt.x+evt.y*hdr.npix
+  
+  ; Check that evt actually contains events in correct structure
+  if (datatype(evt) eq 'STC') then begin
+    pixinds=evt.x+evt.y*hdr.npix
+    time_out=anytim(min(evt.time),/yoh,/trunc)
+  endif else begin
+    pixinds=0
+    time_out=anytim(hdr.tstart,/yoh,/trunc)
+  endelse
+  ; Only run histogram if >1 events
   if (n_elements(pixinds) gt 1) then begin
     im_hist=histogram(pixinds, min=0, max=hdr.npix*hdr.npix-1, binsize=1)
   endif else begin
@@ -72,7 +81,7 @@ pro map_nsevt, evt,hdr,nsmap,effexp=effexp,$
 
   ; construct the map
   nsmap=make_map(ims*1.0,dx=hdr.pixsize,dy=hdr.pixsize,xc=shxy[0],yc=shxy[1],$
-    time=anytim(min(evt.time),/yoh,/trunc),dur=effexp,l0=l0,b0=ang[1],rsun=ang[2],$
+    time=time_out,dur=effexp,l0=l0,b0=ang[1],rsun=ang[2],$
     id=hdr.fpid,comment=comm)
 
   ; only want part of the map?
