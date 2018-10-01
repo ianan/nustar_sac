@@ -7,6 +7,7 @@ This code works with [SSWIDL](http://www.lmsal.com/solarsoft/ssw_setup.html) to 
 * [*example_nsmap.pro*](https://github.com/ianan/nsigh/blob/master/idl/example_nsmap.pro) - Load in an evt, do some filtering, produce and plot some different maps
 * [*example_nsospex.pro*](https://github.com/ianan/nsigh/blob/master/idl/example_nsospex.pro) - Use OSPEX to fit a set of pha, arf and rmf files
 * [*example_nstresp.pro*](https://github.com/ianan/nsigh/blob/master/idl/example_nstresp.pro) - From a set of pha, arf, rmf, files make and plot the temperature response and EM Loci
+* [*example_nsgrdspec.pro*](https://github.com/ianan/nsigh/blob/master/idl/example_nsgrdspec.pro) - Load in an evt, calculate and plot the spectra for different grades
 
 
 ### NuSTAR Generic Code
@@ -16,6 +17,7 @@ This code works with [SSWIDL](http://www.lmsal.com/solarsoft/ssw_setup.html) to 
 * [*load_nschu.pro*](https://github.com/ianan/nsigh/blob/master/idl/load_nschu.pro) - Routine to load in a specific camera head unit, chu, file
 * [*load_nsspec.pro*](https://github.com/ianan/nsigh/blob/master/idl/load_nsspec.pro) - Routine to load in a given pha/rmf/arf files
 * [*make_nstresp.pro*](https://github.com/ianan/nsigh/blob/master/idl/make_nstresp.pro) - Routine to make temperature response from given pha/rmf/arf files
+* [*make_nsgrdspec.pro*](https://github.com/ianan/nsigh/blob/master/idl/make_nsgrdspec.pro) - Routine to different grade spectra from a given evt structure
 
 ### Mapping & Time Profile Code
 * [*time_nsevt.pro*](https://github.com/ianan/nsigh/blob/master/idl/time_nsevt.pro) - Make a time profile (counts and rate vs time) from a evt stucture loaded in via  [*load_nsevt.pro*](https://github.com/ianan/nsigh/blob/master/idl/load_nsevt.pro)

@@ -1,4 +1,4 @@
-pro make_grdspec,evt,grdspc,max_eng=max_eng
+pro make_nsgrdspec,evt,grdspc,max_eng=max_eng
 
   ; Make a spectrum for different event grades from a NuSTAR evt previously loaded via load_nsevt.pro
   ; Should not have been filtered by filter_nsevt.pro

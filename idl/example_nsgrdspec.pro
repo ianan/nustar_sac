@@ -1,4 +1,4 @@
-pro example_nsgrdspc
+pro example_nsgrdspec
 
   ; Examples of using the sswidl code with NuSTAR data to make a GRADE spectrum
   ;
@@ -16,7 +16,7 @@ pro example_nsgrdspc
 
   ; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ; Make the grade spectrum
-  make_grdspec,evt,gs
+  make_nsgrdspec,evt,gs
   
   ; Setup the plot
   clearplot
