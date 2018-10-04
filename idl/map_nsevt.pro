@@ -1,15 +1,15 @@
 pro map_nsevt, evt,hdr,nsmap,effexp=effexp,$
   norm=norm,gsmooth=gsmooth,gs_sig=gs_sig,rebin=rebin,rb_npix=rb_npix,$
-  xrange=xrange,yrange=yrange,shxy=shxy,detmap=detmap,dmo=dmo
+  xrange=xrange,yrange=yrange,shxy=shxy,detmap=detmap,dmo=dmo,shevt=shevt
 
   ; Make a map from a NuSTAR solar coords evt previously loaded via load_nsevt.pro and
   ; possibly filtered by filter_nsevt.pro
   ;
   ; Input
-  ;   evt   - evt structure from load_nsevt.pro
-  ;   hdr   - hdr structure from load_nsevt.pro
+  ;   evt      - evt structure from load_nsevt.pro
+  ;   hdr      - hdr structure from load_nsevt.pro
   ; Output
-  ;   nsmap   - the NuSTAR map structure
+  ;   nsmap    - the NuSTAR map structure
   ;
   ; Option
   ;   effexp   - Effective exposure in sec (defulat uses one from header)
@@ -17,10 +17,11 @@ pro map_nsevt, evt,hdr,nsmap,effexp=effexp,$
   ;   gsmooth  - Apply a gaussian smoothing to the map (default no)
   ;   gs_sig   - Sigma for gaussian smoothing (default 3 pixels)
   ;   rebin    - Apply a x,y rebinning to the map (default no)
-  ;   rb_npix - Number of pixels to rebin map to (same x,y and default is 128)
+  ;   rb_npix  - Number of pixels to rebin map to (same x,y and default is 128)
   ;   xrange   - X-range of the output map in S/C arcsec (default not used)
   ;   yrange   - Y-range of the output map in S/C arcsec (default not used)
-  ;   shxy     - Shift the x,y of the map in arcsec (default no)
+  ;   shxy     - Shift x,y of the map in arcsec (default no)
+  ;   shevt    - Shift x,y, in acrsec, applied directly to evt before making the map (default no)
   ;
   ;
   ; 11-Feb-2018 IGH
@@ -29,6 +30,8 @@ pro map_nsevt, evt,hdr,nsmap,effexp=effexp,$
   ; 23-May-2018 IGH   Change map time to min value of evt.time, instead of hdr.tstart
   ; 30-Sep-2018 IGH   Now will return map even if evt has <2 events
   ;                   Added check for evt input to be eventlist structure
+  ; 04-Oct_2018 IGH   Added option to shift evt xy directly 
+  ;                   Corrected odd tiny number xc,yc in cases it should be 0                 
   ; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ;
 
@@ -38,9 +41,14 @@ pro map_nsevt, evt,hdr,nsmap,effexp=effexp,$
   im_size=1400./hdr.pixsize
   im_width=round(im_size*2.)
   
+  ; shift to apply to the evt
+  if (n_elements(shevt) ne 2) then shevt=[0,0]
+  ; need to convert shift from arcsec to pixels
+  shevt=round(shevt/hdr.pixsize)
+ 
   ; Check that evt actually contains events in correct structure
   if (datatype(evt) eq 'STC') then begin
-    pixinds=evt.x+evt.y*hdr.npix
+    pixinds=(evt.x+shevt[0])+(evt.y+shevt[1])*hdr.npix
     time_out=anytim(min(evt.time),/yoh,/trunc)
   endif else begin
     pixinds=0
@@ -124,5 +132,9 @@ pro map_nsevt, evt,hdr,nsmap,effexp=effexp,$
     endif
 
   endif
+  
+  ; final check that the xc, yc are not a tiny number when should be 0
+  if (abs(nsmap.xc) lt 1e-4) then nsmap.xc=0
+  if (abs(nsmap.yc) lt 1e-4) then nsmap.yc=0
 
 end
