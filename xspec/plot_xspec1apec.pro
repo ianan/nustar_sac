@@ -1,4 +1,4 @@
-pro plot_xspec1apec,fname=fname,fiter=fiter,ylim=ylim,plter=plter,titin=titin,dir=dir
+pro plot_xspec1apec,fname=fname,fiter=fiter,ylim=ylim,xlim=xlim,titin=titin,dir=dir
 
   ; Plot the output from a XSPEC fit with a single APEC thermal model for a single FPM
   ;
@@ -12,6 +12,7 @@ pro plot_xspec1apec,fname=fname,fiter=fiter,ylim=ylim,plter=plter,titin=titin,di
   ;  dir    - Where the files are
   ;
   ; 22-Jan-2018 IGH
+  ; 08-Oct-2018 IGH corrected clim/plter typo
   ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   if (n_elements(fname) ne 1) then fname='mod_apec1fit_fpma_cstat'
@@ -42,7 +43,7 @@ pro plot_xspec1apec,fname=fname,fiter=fiter,ylim=ylim,plter=plter,titin=titin,di
   print,'EM -- Confidence range:',em1, ' -- ',em1_cr
 
   ;  Load in the plot data
-  xout = READ_ASCII(dir+fname+'.txt', DATA_START=4)
+  xout = read_ascii(dir+fname+'.txt', DATA_START=4)
   brkln=where(finite(xout.field1[0,*],/nan))
 
   ; The text file just lists the three plots  (counts, photons, ratio) on top of each other

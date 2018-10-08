@@ -1,4 +1,4 @@
-pro plot_xspec1apec_ab,fname=fname,fiter=fiter,ylim=ylim,plter=plter,titin=titin
+pro plot_xspec1apec_ab,fname=fname,fiter=fiter,ylim=ylim,xlim=xlim,titin=titin,dir=dir
 
   ; Plot the output from a XSPEC fit with a single APEC thermal model for a joint FPMA, FPMB fit
   ;
@@ -9,11 +9,16 @@ pro plot_xspec1apec_ab,fname=fname,fiter=fiter,ylim=ylim,plter=plter,titin=titin
   ;  ylim   - Y range of output plot (2d array, def 1,2e3)
   ;  xlim   - X range of output plot (2d array. def 2.5,6)
   ;  titin  - Title of plot (str, def fname)
+  ;  dir    - Where the files are
   ;
   ; 22-Jan-2018 IGH
+  ; 08-Oct-2018 IGH corrected clim/plter typo
+  ;                 add dir as input variable
+  ;
   ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   if (n_elements(fname) ne 1) then fname='mod_apec1fit_fpmab_cstat_prb'
+  if (n_elements(dir) ne 1) then dir=''
   if (n_elements(fiter) ne 2) then fiter=[2.5,5.0]
   if (n_elements(ylim) ne 2) then ylim=[1.5,2e3]
   if (n_elements(xlim) ne 2) then xlim=[2.0,6.0]
@@ -24,7 +29,7 @@ pro plot_xspec1apec_ab,fname=fname,fiter=fiter,ylim=ylim,plter=plter,titin=titin
   emfact=3.5557d-42
 
   ;  Load in the fits file containting the results, filenames and exposire time
-  xft=mrdfits(fname+'.fits',1,xfth)
+  xft=mrdfits(dir+fname+'.fits',1,xfth)
 
   ; Theses variable names work for a single APEC model
   ; APEC norm is 1e-14/(4piD_A^2) *\int n_e n_p dV (https://heasarc.gsfc.nasa.gov/xanadu/xspec/manual/node133.html)
@@ -42,7 +47,7 @@ pro plot_xspec1apec_ab,fname=fname,fiter=fiter,ylim=ylim,plter=plter,titin=titin
   print,'Factor: ',fac
 
   ;  Load in the plot data
-  xout = READ_ASCII(fname+'.txt', DATA_START=4)
+  xout = read_ascii(dir+fname+'.txt', DATA_START=4)
   brkln=where(finite(xout.field1[0,*],/nan))
 
   ; The text file just lists the three plots  (counts, photons, ratio) on top of each other
@@ -70,10 +75,10 @@ pro plot_xspec1apec_ab,fname=fname,fiter=fiter,ylim=ylim,plter=plter,titin=titin
 
   set_plot,'ps'
   device, /encapsulated, /color, /isolatin1,/inches, $
-    bits=8, xsize=4, ysize=5,file='fitx_'+fname+'.eps'
+    bits=8, xsize=4, ysize=5,file=dir+'fitx_'+fname+'.eps'
 
   tit_str=titin+' ('+string(xft[0].exposure,format='(f5.2)')+'s)'
-  
+
   plot,engs1,data1,/ylog,/nodata,title=tit_str,yrange=ylim,ytickf='exp1',$
     xrange=xlim,xtitle='',ytitle='count s!U-1!N keV!U-1!N',position=[0.175,0.3,0.975,0.94],xtickformat='(a1)'
   id=where(data1 gt 0.,nid)
@@ -101,18 +106,18 @@ pro plot_xspec1apec_ab,fname=fname,fiter=fiter,ylim=ylim,plter=plter,titin=titin
   xyouts,6.4e3,11e3,'!U+'+string(tu,format='(f5.2)')+'!N',/device,color=ct1,align=1,chars=1.1
   xyouts,6.4e3,11e3,'!D-'+string(tl,format='(f5.2)')+'!N',/device,color=ct1,align=1,chars=1.1
   xyouts,9.6e3,11e3,'!N MK ('+string(t1*kev2mk,format='(f5.2)')+' keV)',/device,color=ct1,align=1,chars=1.1
-  
+
   eml=string((em1-em1_cr[0])*1d-46,format='(f5.2)')
   emu=string((em1_cr[1]-em1 )*1d-46,format='(f5.2)')
   xyouts,6.5e3,10e3,string(em1*1d-46,format='(f5.2)'),/device,color=ct1,align=1,chars=1.1
   xyouts,7.4e3,10e3,'!U+'+string(emu,format='(f5.2)')+'!N',/device,color=ct1,align=1,chars=1.1
   xyouts,7.4e3,10e3,'!D-'+string(eml,format='(f5.2)')+'!N',/device,color=ct1,align=1,chars=1.1
   xyouts,9.6e3,10e3,'!Nx10!U46!Ncm!U-3!N',/device,color=ct1,align=1,chars=1.1
-  
+
   xyouts,9.6e3,9e3,string(fac,format='(f4.2)'),/device,color=ct1,align=1,chars=1.1
 
   device,/close
   set_plot, mydevice
 
-;  stop
+  ;  stop
 end
