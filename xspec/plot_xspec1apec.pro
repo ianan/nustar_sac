@@ -12,7 +12,7 @@ pro plot_xspec1apec,fname=fname,fiter=fiter,ylim=ylim,xlim=xlim,titin=titin,dir=
   ;  dir    - Where the files are
   ;
   ; 22-Jan-2018 IGH
-  ; 08-Oct-2018 IGH corrected clim/plter typo
+  ; 08-Oct-2018 IGH corrected plter -> xlim typo
   ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   if (n_elements(fname) ne 1) then fname='mod_apec1fit_fpma_cstat'

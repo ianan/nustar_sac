@@ -12,7 +12,7 @@ pro plot_xspec1apec_ab,fname=fname,fiter=fiter,ylim=ylim,xlim=xlim,titin=titin,d
   ;  dir    - Where the files are
   ;
   ; 22-Jan-2018 IGH
-  ; 08-Oct-2018 IGH corrected clim/plter typo
+  ; 08-Oct-2018 IGH corrected plter -> xlim typo
   ;                 add dir as input variable
   ;
   ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
