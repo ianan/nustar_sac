@@ -1,4 +1,4 @@
-pro plot_xspec1apec_ab,fname=fname,fiter=fiter,ylim=ylim,xlim=xlim,titin=titin,dir=dir
+pro plot_xspec1apec_ab,fname=fname,fiter=fiter,ylim=ylim,xlim=xlim,titin=titin,dir=dir,emscale=emscale
 
   ; Plot the output from a XSPEC fit with a single APEC thermal model for a joint FPMA, FPMB fit
   ;
@@ -12,8 +12,10 @@ pro plot_xspec1apec_ab,fname=fname,fiter=fiter,ylim=ylim,xlim=xlim,titin=titin,d
   ;  dir    - Where the files are
   ;
   ; 22-Jan-2018 IGH
-  ; 08-Oct-2018 IGH corrected plter -> xlim typo
+  ; 08-Oct-2018 IGH corrected clim/plter typo
   ;                 add dir as input variable
+  ; 17-Oct-2018 IGH improved handling/displaying of errors when none found
+  ;                 added emscal option
   ;
   ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -23,6 +25,7 @@ pro plot_xspec1apec_ab,fname=fname,fiter=fiter,ylim=ylim,xlim=xlim,titin=titin,d
   if (n_elements(ylim) ne 2) then ylim=[1.5,2e3]
   if (n_elements(xlim) ne 2) then xlim=[2.0,6.0]
   if (n_elements(titin) ne 1) then titin=fname
+  if (n_elements(emscale) ne 1) then emscale=1d-46
 
   ; To convert the APEC model params to MK and cm^-3
   kev2mk=0.0861733
@@ -100,24 +103,24 @@ pro plot_xspec1apec_ab,fname=fname,fiter=fiter,ylim=ylim,xlim=xlim,titin=titin,d
     position=[0.175,0.1,0.975,0.29],ytit='(Obs-Mod)/Err'
   oplot,xlim,[0,0],lines=1,thick=2
 
-  tl=string((t1-t1_cr[0]),format='(f5.2)')
-  tu=string((t1_cr[1]-t1 ),format='(f5.2)')
+  if (t1_cr[0] ne 0.0) then tl=string((t1-t1_cr[0]),format='(f5.2)')  else tl='x.xx'
+  if (t1_cr[1] ne 0.0) then tu=string((t1_cr[1]-t1 ),format='(f5.2)') else tu='x.xx'
   xyouts,5.5e3,11e3,string(t1,format='(f5.2)'),/device,color=ct1,align=1,chars=1.1
-  xyouts,6.4e3,11e3,'!U+'+string(tu,format='(f5.2)')+'!N',/device,color=ct1,align=1,chars=1.1
-  xyouts,6.4e3,11e3,'!D-'+string(tl,format='(f5.2)')+'!N',/device,color=ct1,align=1,chars=1.1
+  xyouts,6.4e3,11e3,'!U+'+tu+'!N',/device,color=ct1,align=1,chars=1.1
+  xyouts,6.4e3,11e3,'!D-'+tl+'!N',/device,color=ct1,align=1,chars=1.1
   xyouts,9.6e3,11e3,'!N MK ('+string(t1*kev2mk,format='(f5.2)')+' keV)',/device,color=ct1,align=1,chars=1.1
 
-  eml=string((em1-em1_cr[0])*1d-46,format='(f5.2)')
-  emu=string((em1_cr[1]-em1 )*1d-46,format='(f5.2)')
-  xyouts,6.5e3,10e3,string(em1*1d-46,format='(f5.2)'),/device,color=ct1,align=1,chars=1.1
-  xyouts,7.4e3,10e3,'!U+'+string(emu,format='(f5.2)')+'!N',/device,color=ct1,align=1,chars=1.1
-  xyouts,7.4e3,10e3,'!D-'+string(eml,format='(f5.2)')+'!N',/device,color=ct1,align=1,chars=1.1
-  xyouts,9.6e3,10e3,'!Nx10!U46!Ncm!U-3!N',/device,color=ct1,align=1,chars=1.1
+  if (em1_cr[0] ne 0.0) then eml=string((em1-em1_cr[0])*emscale,format='(f5.2)') else eml='x.xx'
+  if (em1_cr[1] ne 0.0) then emu=string((em1_cr[1]-em1 )*emscale,format='(f5.2)') else emu='x.xx'
+  xyouts,6.5e3,10e3,string(em1*emscale,format='(f5.2)'),/device,color=ct1,align=1,chars=1.1
+  xyouts,7.4e3,10e3,'!U+'+emu+'!N',/device,color=ct1,align=1,chars=1.1
+  xyouts,7.4e3,10e3,'!D-'+eml+'!N',/device,color=ct1,align=1,chars=1.1
+  xyouts,9.6e3,10e3,'!Nx10!U'+string(alog10(1/emscale),format='(i2)')+'!Ncm!U-3!N',/device,color=ct1,align=1,chars=1.1
 
   xyouts,9.6e3,9e3,string(fac,format='(f4.2)'),/device,color=ct1,align=1,chars=1.1
 
   device,/close
   set_plot, mydevice
 
-  ;  stop
+;   stop
 end
