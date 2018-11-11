@@ -21,7 +21,8 @@ pro make_nstresp,fname,tresp_str,ebands=ebands,spcer=spcer,ntr=ntr
   ;   ntr       -  Number of temperature bins for the response
   ;
   ; 15-May-2018 IGH
-  ; 18-Jun-2018 IGH   Added option to increase number of temperature bins
+  ; 18-Jun-2018 IGH  Added option to increase number of temperature bins
+  ; 08-Nov-2018 IGH  Returns the error on the rate and livetime
   ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   if (n_elements(fname) ne 1) then $
     fname='~/OneDrive - University of Glasgow/work/ns_data/simple_idl/testxout/nu20110114001A06_chu23_S_cl_grade0_sr'
@@ -60,15 +61,20 @@ pro make_nstresp,fname,tresp_str,ebands=ebands,spcer=spcer,ntr=ntr
   
   ; Create the response for each of the chosen energy bands
   rate=dblarr(neb)
+  erate=dblarr(neb)
   eid=strarr(neb)
   tresp=dblarr(nt,neb)
   for i=0,neb-1 do begin
     id=where(s.enge[0,*] ge ebands[i] and s.enge[1,*] lt ebands[i+1])
     eid[i]=strcompress(string(ebands[i],format='(f4.1)')+' - '+string(ebands[i+1],format='(f4.1)'),/rem)+' keV'
     rate[i]=total(s.counts[id])/s.livetime
+    erate[i]=sqrt(total(s.counts[id]))/s.livetime
     tresp[*,i]=total(modrate[*,id],2)
   endfor
   
-  tresp_str={ebands:ebands,eid:eid,logt:logt,tresp:tresp,tresp_units:'count cm^3 s^-1',rate:rate,rate_units:'count s^-1'}
+  tresp_str={livetime:s.livetime,ebands:ebands,eid:eid,logt:logt,$
+  	tresp:tresp,tresp_units:'count cm^3 s^-1',$
+  	rate:rate,rate_units:'count s^-1',$
+    erate:erate,erate_units:'count s^-1'}
  
 end
