@@ -4,18 +4,21 @@ pro plot_xspec1apec_ab,fname=fname,fiter=fiter,ylim=ylim,xlim=xlim,titin=titin,d
   ;
   ; Note: uses the plot procedure so should work with all version of IDL
   ;
-  ;  fname  - Name of the XSPEC save files
-  ;  fiter  - Need to manually give in the energy range you fitted over (2d array, def 2.5-5)
-  ;  ylim   - Y range of output plot (2d array, def 1,2e3)
-  ;  xlim   - X range of output plot (2d array. def 2.5,6)
-  ;  titin  - Title of plot (str, def fname)
-  ;  dir    - Where the files are
+  ;  fname  	- Name of the XSPEC save files
+  ;  fiter  	- Need to manually give in the energy range you fitted over (2d array, def 2.5-5)
+  ;  ylim   	- Y range of output plot (2d array, def 1,2e3)
+  ;  xlim   	- X range of output plot (2d array. def 2.5,6)
+  ;  titin  	- Title of plot (str, def fname)
+  ;  dir    	- Where the files are
+  ;  emscale    - Value to scale EM by when labelling plot (def 1d-46)
   ;
   ; 22-Jan-2018 IGH
   ; 08-Oct-2018 IGH corrected clim/plter typo
   ;                 add dir as input variable
   ; 17-Oct-2018 IGH improved handling/displaying of errors when none found
   ;                 added emscal option
+  ; 21-Nov-2018 IGH added ability to plot variable and constant dE 
+  ;					previously just constant
   ;
   ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -60,7 +63,7 @@ pro plot_xspec1apec_ab,fname=fname,fiter=fiter,ylim=ylim,xlim=xlim,titin=titin,d
   id3=brkln[1]+indgen(n_elements(xout.field1[0,*])-brkln[1]-1)+1
 
   engs1=xout.field1[0,id1]
-  de1=2*xout.field1[1,id1[0]]
+  de1=xout.field1[1,id1]
   data1=xout.field1[2,id1]
   edata1=xout.field1[3,id1]
   totmod1=xout.field1[4,id1]
@@ -85,7 +88,12 @@ pro plot_xspec1apec_ab,fname=fname,fiter=fiter,ylim=ylim,xlim=xlim,titin=titin,d
   plot,engs1,data1,/ylog,/nodata,title=tit_str,yrange=ylim,ytickf='exp1',$
     xrange=xlim,xtitle='',ytitle='count s!U-1!N keV!U-1!N',position=[0.175,0.3,0.975,0.94],xtickformat='(a1)'
   id=where(data1 gt 0.,nid)
-  for i=0,nid-1 do oplot,engs1[id[i]]+[-de1*0.5,de1*0.5],data1[id[i]]*[1,1],thick=2
+  id_end=where(de1[id] eq max(de1))
+  id=id[0:id_end]
+  nid=n_elements(id)
+
+  ; only plot data up to last good data point, which presumably has the biggest with
+  for i=0,nid-1 do oplot,engs1[id[i]]+[-de1[id[i]],de1[id[i]]],data1[id[i]]*[1,1],thick=2
 
   dtmin=(data1-edata1) >ylim[0]
   dtmax=(data1+edata1) <ylim[1]
@@ -100,8 +108,9 @@ pro plot_xspec1apec_ab,fname=fname,fiter=fiter,ylim=ylim,xlim=xlim,titin=titin,d
   bd=where(finite(resd1) ne 1)
   resd1[bd]=0
   plot,engs1,resd1,yrange=[-4.5,4.5],xrange=xlim,xtit='Energy [keV]',psym=10,thick=2,$
-    position=[0.175,0.1,0.975,0.29],ytit='(Obs-Mod)/Err'
+    position=[0.175,0.1,0.975,0.29],ytit='(O-M)/!ms!3',/nodata
   oplot,xlim,[0,0],lines=1,thick=2
+  for i=0,nid-1 do oplot,engs1[id[i]]+[-de1[id[i]],de1[id[i]]],resd1[id[i]]*[1,1],thick=2,color=ct1
 
   if (t1_cr[0] ne 0.0) then tl=string((t1-t1_cr[0]),format='(f5.2)')  else tl='x.xx'
   if (t1_cr[1] ne 0.0) then tu=string((t1_cr[1]-t1 ),format='(f5.2)') else tu='x.xx'
