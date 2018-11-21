@@ -1,6 +1,6 @@
 # NuSTAR Solar Analysis Code - XSPEC Spectral Fitting
 
-Here we have examples of fitting the NuSTAR spectral files in [XSPEC](https://heasarc.gsfc.nasa.gov/xanadu/xspec/) and then plotting the saved results in IDL. So the starting point assumes you already have your spectral file (.pha) and response files (.rmf .arf).
+Here we have examples of fitting the NuSTAR spectral files in [XSPEC](https://heasarc.gsfc.nasa.gov/xanadu/xspec/) and then plotting the saved results in IDL. So the starting point assumes you already have your spectral file (.pha) and response files (.rmf .arf). Plotting will work with pha processed through [grppha](https://heasarc.gsfc.nasa.gov/ftools/caldb/help/grppha.txt) -- need to add XSPEC example using grppha pha.
 
 ### XSPEC code
 These can be run line-by-line or via @filename in the XSPEC environment - although the final output parts within "iplot" needs to be done manually.
