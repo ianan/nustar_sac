@@ -26,9 +26,11 @@ This code works with [SSWIDL](http://www.lmsal.com/solarsoft/ssw_setup.html) to 
 ### Spectral Fitting Code
 * [*ospex_ns_fvth.pro*](https://github.com/ianan/nsigh/blob/master/idl/ospex_ns_fvth.pro) - Loads in a pha/rmf/arf using and do a single thermal fit
 * [*ospex_ns_fvth2.pro*](https://github.com/ianan/nsigh/blob/master/idl/ospex_ns_fvth2.pro) - Loads in a pha/rmf/arf and do a two thermal fit (one component can be fixed)
+* [*ospex_ns_fvththick.pro*](https://github.com/ianan/nsigh/blob/master/idl/ospex_ns_fvththick.pro) - Loads in a pha/rmf/arf and do a thermal + non-thermal (thick-target) fit
 * [*plotf_ospex_ns_fvth.pro*](https://github.com/ianan/nsigh/blob/master/idl/plotf_ospex_ns_fvth.pro) - Plot the output from ospex_ns_fvth.pro using IDL 8+ plot() function
 * [*plotp_ospex_ns_fvth.pro*](https://github.com/ianan/nsigh/blob/master/idl/plotp_ospex_ns_fvth.pro) - Plot the output from ospex_ns_fvth.pro using IDL plot procedure
 * [*plotp_ospex_ns_fvth2.pro*](https://github.com/ianan/nsigh/blob/master/idl/plotp_ospex_ns_fvth2.pro) - Plot the output from ospex_ns_fvth2.pro using IDL plot procedure
+* [*plotp_ospex_ns_fvththick.pro*](https://github.com/ianan/nsigh/blob/master/idl/plotp_ospex_ns_fvththick.pro) - Plot the output from ospex_ns_fvththick.pro using IDL plot procedure
 
 ### Utility Codes
 * [*post_outset.pro*](https://github.com/ianan/nsigh/blob/master/idl/post_outset.pro) - Sets up the eps plots
