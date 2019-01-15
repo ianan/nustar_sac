@@ -1,11 +1,21 @@
 pro loadct_vrds,magma=magma,bwb=bwb,bwgb=bwgb,bwgwhite=bwgwhite
   ;
-  ; some viridis and magma, via https://www.physics.uci.edu/~barth/atv/atv.pro
-  ; by default gives virdis
-  ; 
-  ; do loadct_vrds,/magma if want magma one
-  ; do loadct_vrds,/bw if want index 0 black and 1 white
-  ;  do loadct_vrds,/bwb if want index 0 black and 1 white and 2 black
+  ; some viridis and magma orginally from https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html
+  ; but these originally from  https://www.physics.uci.edu/~barth/atv/atv.pro
+  ; by default gives virdis, i.e.
+  ;   loadct_vrds
+  ; For magma one
+  ;   loadct_vrds,/magma
+
+  ; Also options for changing top and bottom of ct to black/white/grey
+  ; Want index 0 black, 1 white
+  ;   loadct_vrds,/bw 
+  ; Want index 0 black, 1 white, 2 black, 255 white
+  ;   loadct_vrds,/bwb
+  ; Want index 0 black, 1 white, 2 grey, 3 black, 255 white
+  ;   loadct_vrds, /bwgb
+  ; Want index 0 black, 1 white, 2 grey, 3 white, 255 white
+  ;   loadct_vrds, /bwgwhite
   ; 
   ; IGH
 
