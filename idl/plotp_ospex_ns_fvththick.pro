@@ -11,6 +11,7 @@ pro plotp_ospex_ns_fvththick,f,xlim=xlim,outname=outname,ylim=ylim,outdir=outdir
   ;     ylim    -   2d array of yrange to plot over
   ;
   ; 23-Nov-2018 IGH   Based on plotp_ospex_ns_fvth2
+  ; 27-Jan-2019 IGH   Correct labelling of plot as had \delta <-> E_C 
   ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   w=window(dimensions=[350,450],/buffer)
@@ -62,8 +63,8 @@ pro plotp_ospex_ns_fvththick,f,xlim=xlim,outname=outname,ylim=ylim,outdir=outdir
     string(alog10(f.parm[0]*1d49),format='(f4.1)')+string(177b)+string(alog10(f.parmerr[0]*1d49),format='(f4.1)')+$
     ') cm!U-3!N',/device,color=ct1,align=1,chars=0.9
 
-  xyouts,9.6e3,10.2e3,'!Md!N= '+string(f.parm[7],format='(f4.1)')+string(177b)+string(f.parmerr[7],format='(f4.2)')+' , E!DC!N= '+$
-    string(f.parm[6],format='(f4.1)')+string(177b)+string(f.parmerr[6],format='(f4.1)')+' keV',/device,color=ct2,align=1,chars=0.9
+  xyouts,9.6e3,10.2e3,'!Md!N= '+string(f.parm[6],format='(f4.1)')+string(177b)+string(f.parmerr[6],format='(f4.2)')+' , E!DC!N= '+$
+    string(f.parm[7],format='(f4.1)')+string(177b)+string(f.parmerr[7],format='(f4.1)')+' keV',/device,color=ct2,align=1,chars=0.9
 
   xyouts,9.6e3,9.4e3,'!Mc!3!U2!N= '+strcompress(string(f.chisq,format='(f5.1)'),/rem),/device,color=ct0,align=1,chars=0.9
 
