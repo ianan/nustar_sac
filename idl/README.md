@@ -4,6 +4,7 @@ This code works with [SSWIDL](http://www.lmsal.com/solarsoft/ssw_setup.html) to 
 
 ### Examples
 * [*example_nslct.pro*](https://github.com/ianan/nsigh/blob/master/idl/example_nslct.pro) - Load in evt, hk and chu files and plot time profiles of them
+* [*example_nslct2.pro*](https://github.com/ianan/nsigh/blob/master/idl/example_nslct2.pro) - Second example of load in evt, hk and chu files and plot time profiles of them - this time with spatial xy filtering
 * [*example_nsmap.pro*](https://github.com/ianan/nsigh/blob/master/idl/example_nsmap.pro) - Load in an evt, do some filtering, produce and plot some different maps
 * [*example_nsospex.pro*](https://github.com/ianan/nsigh/blob/master/idl/example_nsospex.pro) - Use OSPEX to fit a set of pha, arf and rmf files
 * [*example_nstresp.pro*](https://github.com/ianan/nsigh/blob/master/idl/example_nstresp.pro) - From a set of pha, arf, rmf, files make and plot the temperature response and EM Loci
@@ -39,3 +40,5 @@ This code works with [SSWIDL](http://www.lmsal.com/solarsoft/ssw_setup.html) to 
 * [*vcol2arr.pro*](https://github.com/ianan/nsigh/blob/master/idl/vcol2arr.pro) - Used by rmfread.pro, [originally from](https://lost-contact.mit.edu/afs/physics.wisc.edu/home/craigm/lib/idl/util/vcol2arr.pro)
 * [*vrmf2arr.pro*](https://github.com/ianan/nsigh/blob/master/idl/vrmf2arr.pro) - Used by rmfread.pro, [originally from](https://lost-contact.mit.edu/afs/physics.wisc.edu/home/craigm/lib/idl/spectral/vrmf2arr.pro)
 * [*ns_lct.pro*](https://github.com/ianan/nsigh/blob/master/idl/ns_lct.pro) - Colour table for NuSTAR maps
+* [*loadct_vrds.pro*](https://github.com/ianan/nsigh/blob/master/idl/loadct_vrds.pro) - Colour table using viridis/magma
+* [*tlc_igh.pro*](https://github.com/ianan/nsigh/blob/master/idl/tlc_igh.pro) - Colour table with a variety of useful line colours
