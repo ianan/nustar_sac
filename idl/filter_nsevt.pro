@@ -1,5 +1,5 @@
-pro filter_nsevt,evt,evtf,grade=grade,engrng=engrng,tmrng=tmrng,detid=detid,$
-  badpix=badpix,bp_str=bp_str,fpmid=fpmid
+pro filter_nsevt,evt,evtf,hdr,grade=grade,engrng=engrng,tmrng=tmrng,detid=detid,$
+  badpix=badpix,bp_str=bp_str,fpmid=fpmid,xyrange=xyrange
 
   ; Filter a NuSTAR solar coords evt file
   ;
@@ -23,12 +23,16 @@ pro filter_nsevt,evt,evtf,grade=grade,engrng=engrng,tmrng=tmrng,detid=detid,$
   ;   badpix  -  Remove the default bad pixels (default off)
   ;   fpmid   -  FPM of the evt file, needed for bad pixel stuff (default is A)
   ;   bp_str  -  Provide your own bad pixel list structure, each entry being {fpm:,det:,rawx:,rawy:}
+  ;   hdr     -  Header info from load_nsevt
+  ;   xyrange -  Filter for events from spatial location [xmin,xmax, ymin,ymax] in S/C arcsec
+  ;                 Need to provide hdr with this option
   ;
   ; 11-Feb-2018 IGH
   ; 10-May-2018 IGH   Tidied up comments
   ; 11-May-2018 IGH   Corrected bug so that grade and det filtering works for array of grades/dets
   ; 14-May-2018 IGH   Added bad pixel removal
   ; 30-Sep-2018 IGH   Changed default return when filters no met to 0, instead of original evt
+  ; 21-Feb-2019 IGH   Added event filter based on x,y position (in S/C arcsec)
   ; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ;
 
@@ -104,5 +108,16 @@ pro filter_nsevt,evt,evtf,grade=grade,engrng=engrng,tmrng=tmrng,detid=detid,$
     endif
 
   endif
+  
+  ; If doing filtering over spatial positions need the hdr to be provided as well
+  if (n_elements(xyrange) eq 4 and datatype(hdr) eq 'STC') then begin
+    xs=hdr.pixsize*(evtf.x-hdr.npix*0.5)
+    ys=hdr.pixsize*(evtf.y-hdr.npix*0.5)
+        
+    xyid=where(xs ge xyrange[0] and xs le xyrange[1] and ys ge xyrange[2] and ys le xyrange[3],nxyid)
+    if (nxyid gt 0) then evtf=evtf[xyid] else evtf=0
+    
+  endif
+  
 
 end

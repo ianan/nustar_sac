@@ -1,4 +1,4 @@
-pro loadct_vrds,magma=magma,bwb=bwb,bwgb=bwgb,bwgwhite=bwgwhite
+pro loadct_vrds,magma=magma,blwh=blwh,bwbw=bwbw,bwgb=bwgb,bwgw=bwgwh
   ;
   ; some viridis and magma orginally from https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html
   ; but these originally from  https://www.physics.uci.edu/~barth/atv/atv.pro
@@ -9,15 +9,17 @@ pro loadct_vrds,magma=magma,bwb=bwb,bwgb=bwgb,bwgwhite=bwgwhite
 
   ; Also options for changing top and bottom of ct to black/white/grey
   ; Want index 0 black, 1 white
-  ;   loadct_vrds,/bw 
+  ;   loadct_vrds,/blwh 
   ; Want index 0 black, 1 white, 2 black, 255 white
-  ;   loadct_vrds,/bwb
+  ;   loadct_vrds,/bwbw
   ; Want index 0 black, 1 white, 2 grey, 3 black, 255 white
   ;   loadct_vrds, /bwgb
   ; Want index 0 black, 1 white, 2 grey, 3 white, 255 white
-  ;   loadct_vrds, /bwgwhite
+  ;   loadct_vrds, /bwgwh
   ; 
   ; IGH
+  ; 21-Feb-2019 IGH   -   Updated naming flags for top/bot colour changes
+  ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   if keyword_set(magma) then begin
     ; Magma color map from matplotlib.
@@ -550,16 +552,16 @@ pro loadct_vrds,magma=magma,bwb=bwb,bwgb=bwgb,bwgwhite=bwgwhite
 
   endelse
 
-;  if keyword_set(bw) then begin
-;    r[0]=0
-;    g[0]=0
-;    b[0]=0
-;    r[1]=255
-;    g[1]=255
-;    b[1]=255
-;  endif
+  if keyword_set(blwh) then begin
+    r[0]=0
+    g[0]=0
+    b[0]=0
+    r[1]=255
+    g[1]=255
+    b[1]=255
+  endif
   
-  if keyword_set(bwb) then begin
+  if keyword_set(bwbw) then begin
     r[0]=0
     g[0]=0
     b[0]=0
@@ -592,7 +594,7 @@ pro loadct_vrds,magma=magma,bwb=bwb,bwgb=bwgb,bwgwhite=bwgwhite
     b[255]=255
   endif
   
-  if keyword_set(bwgwhite) then begin
+  if keyword_set(bwgwh) then begin
     r[0]=0
     g[0]=0
     b[0]=0
