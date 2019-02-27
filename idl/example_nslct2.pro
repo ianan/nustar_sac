@@ -21,7 +21,20 @@ pro example_nslct2
 
   ; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ; Filter evt for just grade=0, energy=[2.5,10] and x=[-1000,-900], y=[150,250]
-  filter_nsevt,evt,evtxy,hdr,grade=0,engrng=[2.5,10],xyrange=[-1000,-900,150,250]
+  filter_nsevt,evt,evtf,hdr,grade=0,engrng=[2.5,10]
+  filter_nsevt,evt,evtxy,hdr,grade=0,engrng=[2.5,10],xyrange=[-1050,-850,50,250]
+  
+  ; Plot the maps to check the xy filtering did work
+  !p.multi=[0,2,1]
+  window,1,xsize=900,ysize=450
+  ns_lct
+  map_nsevt,evtf,hdr,mapf
+  plot_map,rebin_map(mapf,1024,1024),/limb,grid_spacing=15,/log,$
+    bot=2,top=254,gcolor=1,lcolor=1,xrange=[-1200,-700],yrange=[0,500],tit='Full'
+  
+  map_nsevt,evtxy,hdr,mapxy
+  plot_map,rebin_map(mapxy,1024,1024),/limb,grid_spacing=15,/log,$
+    bot=2,top=254,gcolor=1,lcolor=1,xrange=[-1200,-700],yrange=[0,500],tit='XY Range'
 
   ; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ; Load in the livetimes from the housekeeping file

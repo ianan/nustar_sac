@@ -33,6 +33,7 @@ pro filter_nsevt,evt,evtf,hdr,grade=grade,engrng=engrng,tmrng=tmrng,detid=detid,
   ; 14-May-2018 IGH   Added bad pixel removal
   ; 30-Sep-2018 IGH   Changed default return when filters no met to 0, instead of original evt
   ; 21-Feb-2019 IGH   Added event filter based on x,y position (in S/C arcsec)
+  ; 27-Feb-2019 IGH   Tweak xy filter, to convert limit instead of all evt xy
   ; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ;
 
@@ -108,16 +109,23 @@ pro filter_nsevt,evt,evtf,hdr,grade=grade,engrng=engrng,tmrng=tmrng,detid=detid,
     endif
 
   endif
-  
+
   ; If doing filtering over spatial positions need the hdr to be provided as well
   if (n_elements(xyrange) eq 4 and datatype(hdr) eq 'STC') then begin
-    xs=hdr.pixsize*(evtf.x-hdr.npix*0.5)
-    ys=hdr.pixsize*(evtf.y-hdr.npix*0.5)
-        
-    xyid=where(xs ge xyrange[0] and xs le xyrange[1] and ys ge xyrange[2] and ys le xyrange[3],nxyid)
+    ;    Less to compute if convert limits into pixels, instead of all the evt x,y into S/C arcsec
+    x1=hdr.npix*0.5+xyrange[0]/hdr.pixsize
+    x2=hdr.npix*0.5+xyrange[1]/hdr.pixsize
+
+    y1=hdr.npix*0.5+xyrange[2]/hdr.pixsize
+    y2=hdr.npix*0.5+xyrange[3]/hdr.pixsize
+    xyid=where(evtf.x ge x1 and evtf.x lt x2 and evtf.y ge y1 and evtf.y lt y2,nxyid)
+
+    ;    xs=hdr.pixsize*(evtf.x-hdr.npix*0.5)
+    ;    ys=hdr.pixsize*(evtf.y-hdr.npix*0.5)
+    ;    xyid=where(xs ge xyrange[0] and xs le xyrange[1] and ys ge xyrange[2] and ys le xyrange[3],nxyid)
     if (nxyid gt 0) then evtf=evtf[xyid] else evtf=0
-    
+
   endif
-  
+
 
 end
