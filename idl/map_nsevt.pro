@@ -22,7 +22,6 @@ pro map_nsevt, evt,hdr,nsmap,effexp=effexp,$
   ;   yrange   - Y-range of the output map in S/C arcsec (default not used)
   ;   shxy     - Shift x,y of the map in arcsec (default no)
   ;   shevt    - Shift x,y, in acrsec, applied directly to evt before making the map (default no)
-  ;   degs     - If using the original files, pixel_size in degs not arcsec (default no)
   ;
   ;
   ; 11-Feb-2018 IGH
