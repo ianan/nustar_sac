@@ -12,7 +12,7 @@ setplot energy
 
 # Do lots of setup stuff
 setplot command time off
-setplot command label top "19 Feb 2016 20:40:00 - 20:50:00"
+setplot command label top " "
 setplot command label otop "FPMA"
 setplot command lWidth 3
 setplot command lw 3 1,2,3,4,5,6,7,8,9,10,11,12
