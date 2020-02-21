@@ -1,0 +1,92 @@
+# Do a 1 APEC thermal fit to FPMA
+# IGH 21 Feb 2020
+
+# This script is only expected to behave as expected if run from fresh/reset xspec session
+data 1:1 nu20102012001A06_cl_grade0_sr.pha
+
+statistic cstat
+ignore *:0.-2.0 10.0-**
+setplot rebin 25 5
+# setplot rebin 25 3
+setplot energy
+
+# Do lots of setup stuff
+setplot command time off
+setplot command label top "19 Feb 2016 20:40:00 - 20:50:00"
+setplot command label otop "FPMA"
+setplot command lWidth 3
+setplot command lw 3 1,2,3,4,5,6,7,8,9,10,11,12
+setplot command csize 1
+setplot command win 1
+setplot command rescale y 0.1 20000
+setplot command log off
+setplot command log y on
+setplot command label y counts s\\u-1\\d keV\\u-1\\d
+
+# Just plot the input data to file
+
+setplot device D_thfprb.eps/vcps
+plot ldata
+cpd none
+
+# Now plot to screen
+setplot device /xwindow
+plot
+
+# Do the fit and save it out
+ignore *:0.-2.5 7.0-**
+model apec
+/*
+
+renorm
+abund file feld92a_coronal0.txt
+fit 1000
+error 1.0 1 4
+###################
+# writefits mod_thfprb.fits
+###################
+
+## Plot the fit to the data
+setplot command win 2
+setplot command rescale y -9 9
+setplot command log off
+
+setplot command color off
+setplot command color on
+setplot command color 1 on 0 1 3 5
+setplot command color 13 on 2 4
+notice *: 2.0-9.0
+setplot device F_thfprb.eps/vcps
+plot ldata delchi
+cpd none
+
+setplot command win 1
+setplot command label otop "FPMA"
+setplot command rescale y 0.1 20000
+setplot command log off
+setplot command log y on
+setplot command win 2
+setplot command label y photons cm\\u-2\\d s\\u-1\\d keV\\u-1\\d
+setplot command rescale y 0.0005 7000
+setplot command log off
+setplot command log y on
+setplot command win 3
+setplot command rescale y -9 9
+setplot command log off
+setplot command color off
+setplot command color on
+setplot command color 1 on 0 1 3 5
+setplot command color 13 on 2 4
+setplot command color 15 on 5
+setplot device F2_thfprb.eps/vcps
+plot ldata ufspec delchi
+cpd none
+
+setplot device /xwindow
+####################
+iplot ldata ufspec delchi
+# # wdata mod_thfprb.txt
+# # exit
+# # ####################
+
+

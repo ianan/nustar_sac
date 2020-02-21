@@ -1,0 +1,102 @@
+# Do a 1 APEC thermal fit to FPMA and FPMB
+# IGH 21 Feb 2020
+
+# This script is only expected to behave as expected if run from fresh/reset xspec session
+data 1:1 nu20102012001A06_cl_grade0_sr.pha 2:2 nu20102012001B06_cl_grade0_sr.pha
+
+statistic cstat
+ignore *:0.-2.0 10.0-**
+setplot rebin 25 3
+setplot energy
+
+# Do lots of setup stuff
+setplot command time off
+setplot command label top " "
+setplot command label otop "FPMA (orange) FPMB (blue)"
+setplot command lWidth 3
+setplot command lw 3 1,2,3,4,5,6,7,8,9,10,11,12
+setplot command csize 1
+setplot group 1 2
+setplot noadd
+setplot command color 8 on 1
+setplot command color 11 on 2
+setplot command win 1
+setplot command rescale y 0.1 20000
+setplot command log off
+setplot command log y on
+setplot command label y counts s\\u-1\\d keV\\u-1\\d
+
+# Just plot the input data to file
+setplot device D_thf2prb.eps/vcps
+plot ldata
+cpd none
+
+# Now plot to screen
+setplot device /xwindow
+plot
+
+# Do the fit and save it out
+ignore *:0.-2.5 7.0-**
+model const*apec
+1.0 -0.1
+/*
+untie 6
+thaw 6
+renorm
+abund file feld92a_coronal0.txt
+fit 1000
+error 1.0 2 5 6
+###################
+# writefits mod_thf2prb.fits
+###################
+
+## Plot the fit to the data
+setplot command win 2
+setplot command rescale y -9 9
+setplot command log off
+
+setplot command color off
+setplot command color on
+setplot command color 8 on 1 5 2 6
+# setplot command color 8 on 1 5 
+# setplot command color 2 on 2 6
+setplot command color 11 on 3 7 4 8
+# setplot command color 11 on 3 7
+# setplot command color 4 on 4 8
+notice *: 2.0-9.0
+setplot device F_thf2prb.eps/vcps
+plot ldata delchi
+cpd none
+
+setplot group 1-2
+setplot add
+setplot command win 1
+setplot command label otop "FPMA+FPMB"
+setplot command rescale y 0.1 20000
+setplot command log off
+setplot command log y on
+setplot command win 2
+setplot command label y photons cm\\u-2\\d s\\u-1\\d keV\\u-1\\d
+setplot command rescale y 0.0005 7000
+setplot command log off
+setplot command log y on
+setplot command win 3
+setplot command rescale y -9 9
+setplot command log off
+setplot command color off
+setplot command color on
+setplot command color 1 on 0 1 3 5
+setplot command color 13 on 2 4
+setplot command color 15 on 5
+setplot device F2_thf2prb.eps/vcps
+plot ldata ufspec delchi
+cpd none
+
+setplot device /xwindow
+####################
+iplot ldata ufspec delchi
+# # wdata mod_thf2prb.txt
+# # exit
+# # ####################
+
+
