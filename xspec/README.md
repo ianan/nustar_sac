@@ -5,7 +5,7 @@ Here we have examples of fitting the NuSTAR spectral files in [XSPEC](https://he
 ### XSPEC code
 These can be run line-by-line or via @filename in the XSPEC environment - although the final output parts within "iplot" needs to be done manually.
 
-Have newer scripts that also output "nice" plots as the fitting is done:
+Have newer scripts that also output "nice" plots as the fitting is done, as well as python example to plot saved results:
 * [*thfprb.xcm*](https://github.com/ianan/nustar_sac/blob/master/xspec/thfprb.xcm) - 1 APEC, 1 FPM(A)
 * [*thf2prb.xcm*](https://github.com/ianan/nustar_sac/blob/master/xspec/thf2prb.xcm) - 1 APEC, 2 FPM
 * [*th2f2prb.xcm*](https://github.com/ianan/nustar_sac/blob/master/xspec/th2f2prb.xcm) - 2 APEC, 2 FPM
