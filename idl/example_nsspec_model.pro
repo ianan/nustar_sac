@@ -3,7 +3,7 @@ pro example_nsspec_model
   ; Comparison of some NuSTAR spectral data and the models in sswidl
   ;
   ; Uses the NuSTAR data from Kris Cooper:
-  ;
+  ; https://github.com/KriSun95/nustarFittingExample/tree/master/nustarFittingExample/spectralData
   ;
   ; 31-Mar-2020 IGH   Started
   ;
