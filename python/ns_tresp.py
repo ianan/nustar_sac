@@ -79,7 +79,7 @@ def read_rmf(file):
     
     return data['energ_lo'], data['energ_hi'], mat_array
 
-def col2arr_py(data):
+def col2arr_py(data, **kwargs):
     ''' Takes a list of parameters for each energy channel from a .rmf file and returns it in the correct format.
     From: https://lost-contact.mit.edu/afs/physics.wisc.edu/home/craigm/lib/idl/util/vcol2arr.pro
     
@@ -87,6 +87,9 @@ def col2arr_py(data):
     ----------
     data : array/list-like object
             One parameter's array/list from the .rmf file.
+    kwargs : idl_check=Bool or idl_way=Bool
+            If idl_check=True the funciton will throw an error if the Python and IDL methods give different answers (they shouldn't).
+            If idl_way=True the IDL method's result with be returned instead of the new Python method described.
             
     Returns
     -------
@@ -106,32 +109,50 @@ def col2arr_py(data):
            [  0.,  22.]])
     ## max row length of 2 so 2 columns, each row is an energy channel. 
     '''
+
+    ## this is the quicker way I have chosen to do in Python (this may be revised later but is ~30x faster than way below in Python)
+    max_len = np.max([len(r) for r in data]) # find max row length
+    chan_array_py = np.array([[*r, *(max_len-len(r))*[0]] for r in data]) # make each row that length (padding with 0)
+
+    #*************************************************************************************************************************************************
+    # if you want to involve the IDL way
+    # set defaults to help check how it is done in IDL (second dict rewrites the keys of the first)
+    defaults = {**{"idl_check":False, "idl_way":False}, **kwargs}
+
+    if defaults["idl_check"] or defaults["idl_way"]:
+        ## this is the way IDL does col2arr.pro
+        chan = np.array(data)
+
+        nc = np.array([len(n) for n in data]) # number of entries in each row
+        accum_nc_almost = [nc[i]+sum(nc[0:i]) for i in range(len(nc))] # running total in each row
     
-    chan = np.array(data)
+        # need 0 as start with 0 arrays
+        accum_nc = np.array([0] + accum_nc_almost) # this acts as the index as if the array has been unraveled
 
-    nc = np.array([len(n) for n in data]) # number of entries in each row
-    accum_nc_almost = [nc[i]+sum(nc[0:i]) for i in range(len(nc))] # running total in each row
-    
-    # need 0 as start with 0 arrays
-    accum_nc = np.array([0] + accum_nc_almost) # this acts as the index as if the array has been unraveled
+        ## number of columns is the length of the row with the max number of entries (nc)
+        ncol = np.max(nc)
+        ## number of rows is just the number of rows chan just has
+        nrow = len(chan)
 
-    ## number of columns is the length of the row with the max number of entries (nc)
-    ncol = np.max(nc)
-    ## number of rows is just the number of rows chan just has
-    nrow = len(chan)
+        chan_array = np.zeros(shape=(nrow, ncol))
 
-    chan_array = np.zeros(shape=(nrow, ncol))
+        for c in range(ncol):
+            # indices where the number of entries in the row are greater than the column
+            where = (nc > c).nonzero()[0] 
 
-    for c in range(ncol):
-        # indices where the number of entries in the row are greater than the column
-        where = (nc > c).nonzero()[0] 
+            # cycle through the rows to be filled in:
+            ## if this row is one that has more values in it than the current column number then use the appropriate chan 
+            ## number else make it zero
+            chan_array[:,c] = [chan[n][c] if (n in where) else 0 for n in range(nrow)] 
 
-        # cycle through the rows to be filled in:
-        ## if this row is one that has more values in it than the current column number then use the appropriate chan 
-        ## number else make it zero
-        chan_array[:,c] = [chan[n][c] if (n in where) else 0 for n in range(nrow)] 
-        
-    return chan_array
+        if defaults["idl_check"]:
+            assert np.array_equal(chan_array_py, chan_array), \
+            "The IDL way and the Python way here do not produce the same result. \nPlease check this but trust the IDL way more (set idl_way=True)!"
+        if defaults["idl_way"]:
+            return chan_array
+    #*************************************************************************************************************************************************
+
+    return chan_array_py
 
 
 def vrmf2arr_py(data=None, n_grp_list=None, f_chan_array=None, n_chan_array=None):
@@ -144,8 +165,8 @@ def vrmf2arr_py(data=None, n_grp_list=None, f_chan_array=None, n_chan_array=None
             Redistribution matrix parameter array/list from the .rmf file. Units are counts per photon.
             Default : None
             
-    no_of_channels : int
-            Number of channels/ energy bins.
+    n_grp_list : list
+            Number of groups (sub-channels) for each energy bin. Total number of channels is the length of this list.
             Default : None
             
     f_chan_array : numpy.array
@@ -202,7 +223,7 @@ def vrmf2arr_py(data=None, n_grp_list=None, f_chan_array=None, n_chan_array=None
     for r in range(nrows):
         if nc[r] > 0:
             # in IDL code the second index is -1 but that's because IDL's index boundaries 
-            ## are both inclusive sod rop the -1, i.e. was accum_nc[r+1]-1
+            ## are both inclusive so drop the -1, i.e. was accum_nc[r+1]-1
             row = unravel_dmat[accum_nc[r]:accum_nc[r+1]] 
 
             c=0
