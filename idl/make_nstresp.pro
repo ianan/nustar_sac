@@ -43,8 +43,8 @@ pro make_nstresp,fname,tresp_str,ebands=ebands,spcer=spcer,ntr=ntr
   ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ; Use same temperature binning as aia_get_response() though need f_vth only works >1MK
   
-  if (n_elements(ntr) ne 1) then ntr=40
-  dt=(8.0-6.0)/ntr
+  if (n_elements(ntr) ne 1) then ntr=39
+  dt=(7.95-6.0)/ntr
   ; f_vth only works from 6.01 so make sure don't go below that
   if (dt lt 0.01) then logt=6.01+indgen(ntr)*dt else logt=6.0+dt+indgen(ntr)*dt
 
