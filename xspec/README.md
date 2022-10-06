@@ -10,7 +10,8 @@ Have newer scripts that also output "nice" plots as the fitting is done, as well
 * [*thf2prb.xcm*](https://github.com/ianan/nustar_sac/blob/master/xspec/thf2prb.xcm) - 1 APEC, 2 FPM
 * [*th2f2prb.xcm*](https://github.com/ianan/nustar_sac/blob/master/xspec/th2f2prb.xcm) - 2 APEC, 2 FPM
 * [*th2f2prbgn.xcm*](https://github.com/ianan/nustar_sac/blob/master/xspec/th2f2prbgn.xcm) - 2 APEC, 2 FPM, Gain
-* [*example_xspec.ipynb*](https://github.com/ianan/nustar_sac/blob/master/xspec/example_xspec.ipynb) - Python notebook to plot the output from [*thf2prb.xcm*](https://github.com/ianan/nustar_sac/blob/master/xspec/thf2prb.xcm) 
+* [*plot_xspec_thf2prb.ipynb*](https://github.com/ianan/nustar_sac/blob/master/xspec/plot_xspec_thf2prb.ipynb) - Python notebook to plot the output from [*thf2prb.xcm*](https://github.com/ianan/nustar_sac/blob/master/xspec/thf2prb.xcm) 
+* [*plot_xspec_th2f2prb.ipynb*](https://github.com/ianan/nustar_sac/blob/master/xspec/plot_xspec_th2f2prb.ipynb) - Python notebook to plot the output from [*th2f2prb.xcm*](https://github.com/ianan/nustar_sac/blob/master/xspec/thf2prb.xcm) 
 
 Fit a single APEC thermal model with coronal abundances to one telescope (FPM):
 * [*apec1fit_fpm1_cstat.xcm*](https://github.com/ianan/nustar_sac/blob/master/xspec/apec1fit_fpm1_cstat.xcm) - Uses c-stat test, recommended approach (as likely low count/poisson uncertainty bins).
